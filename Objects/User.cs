@@ -142,5 +142,47 @@ namespace BarterNameSpace
                 conn.Close();
             }
         }
+
+        public static User Find(int id)
+        {
+            SqlConnection conn = DB.Connection();
+            SqlDataReader rdr = null;
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM barter_users WHERE id = @UserId;", conn);
+
+            SqlParameter UserIdParameter = new SqlParameter();
+            UserIdParameter.ParameterName = "@UserId";
+            UserIdParameter.Value = id.ToString();
+            cmd.Parameters.Add(UserIdParameter);
+            rdr = cmd.ExecuteReader();
+
+            int foundUserId = 0;
+            string foundEmail = null;
+            string foundPicture = null;
+            string foundPassword = null;
+            string foundLocation = null;
+
+            while (rdr.Read())
+            {
+                foundUserId = rdr.GetInt32(0);
+                foundEmail = rdr.GetString(1);
+                foundPicture = rdr.GetString(2);
+                foundPassword = rdr.GetString(3);
+                foundLocation = rdr.GetString(4);
+
+            }
+            User newUser = new User(foundEmail, foundPicture, foundPassword, foundLocation, foundUserId);
+
+            if (rdr != null)
+            {
+                rdr.Close();
+            }
+            if (conn != null)
+            {
+                conn.Close();
+            }
+            return newUser;
+        }
     }
 }
