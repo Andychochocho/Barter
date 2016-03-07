@@ -63,5 +63,51 @@ namespace BarterNameSpace
     {
         return _id;
     }
+    
+    public void Save()
+    {
+        SqlConnection conn = DB.Connection();
+        SqlDataReader rdr;
+        conn.Open();
+        
+        SqlCommand cmd = new SqlCommand ("INSERT INTO barter_users(email, pic, user_password, user_location) OUTPUT INSERTED.id VALUES(@Email, @Picture, @Password ,@Location);",conn);
+        
+        SqlParameter emailNameParameter = newSqlParameter();
+        emailNameParameter.ParameterName = "@Email";
+        emailNameParameter.Value= this.GetEmail();
+        cmd.Parameters.Add(emailNameParameter);
+        
+        SqlParameter picNameParameter = newSqlParameter();
+        picNameParameter.ParameterName = "@Picture";
+        picNameParameter.Value= this.GetPicture();
+        cmd.Parameters.Add(picNameParameter);
+        
+        SqlParameter user_passwordNameParameter = newSqlParameter();
+        user_passwordNameParameter.ParameterName = "@Password";
+        user_passwordNameParameter.Value= this.GetPassword();
+        cmd.Parameters.Add(user_passwordNameParameter);
+        
+        SqlParameter user_locationNameParameter = newSqlParameter();
+        user_locationNameParameter.ParameterName = "@Location";
+        user_locationNameParameter.Value= this.GetLocation();
+        cmd.Parameters.Add(user_locationNameParameter);                
+        
+        rdr = cmd.ExecuteReader();
+        
+        while(rdr.Read())
+        {
+            this._id = rdr.GetInt32(0);
+        }
+        if (rdr !- null)
+        {
+            rdr.Close();
+        }
+        if(conn != null)
+        {
+            conn.Close();
+        }
+    }
   }
 }
+
+
