@@ -130,7 +130,7 @@ namespace BarterNameSpace
             rdr = cmd.ExecuteReader();
 
             while (rdr.Read())
-            {
+                        {
                 this._id = rdr.GetInt32(0);
             }
             if (rdr != null)
@@ -141,6 +141,13 @@ namespace BarterNameSpace
             {
                 conn.Close();
             }
+        }
+        public static void DeleteAll()
+        {
+        SqlConnection conn = DB.Connection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("DELETE FROM barter_users;", conn);
+        cmd.ExecuteNonQuery();
         }
     }
 }
