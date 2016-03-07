@@ -5,7 +5,23 @@
     <title>Shoe Store</title>
   </head>
 <body>
-
+<form class="" action="/postForm" method="post">
+  <input type="text" name="post" value="">
+  <label for="post">Post something</label>
+  <button type="submit" name="button">Click here</button>
+</form>
+@if (@Model != null)
+{
+  foreach(var post in @Model)
+  {
+    <p>@post.GetUserPost() - @post.GetDate()</p>
+  }
+}
+else {
+  <p>
+    No posts yet.
+  </p>
+}
 
 </body>
 </html>

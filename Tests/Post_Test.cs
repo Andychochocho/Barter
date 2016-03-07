@@ -6,9 +6,9 @@ using System.Data.SqlClient;
 
 namespace BarterNamespace
 {
-  public class PostTest : IDisposable
+  public class UserPostTest : IDisposable
   {
-    public PostTest()
+    public UserPostTest()
     {
       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=barter_test;Integrated Security=SSPI;";
     }
@@ -17,7 +17,7 @@ namespace BarterNamespace
     public void Test_EmptyAtFirst()
     {
       //Arrange, Act
-      int result = Post.GetAll().Count;
+      int result = UserPost.GetAll().Count;
       //Assert
       Assert.Equal(0, result);
     }
@@ -26,21 +26,36 @@ namespace BarterNamespace
     public void Test_EqualOverrideTrueForSameDescription()
     {
       //Arrange, Act
-      Post firstPost = new Post(5, "post text", new DateTime(2000, 1, 1));
-      Post secondPost = new Post(5, "post text", new DateTime(2000, 1, 1));
+      UserPost firstUserPost = new UserPost(5, "userpost text", new DateTime(2000, 1, 1));
+      UserPost secondUserPost = new UserPost(5, "userpost text", new DateTime(2000, 1, 1));
       //Assert
-      Assert.Equal(firstPost, secondPost);
+      Assert.Equal(firstUserPost, secondUserPost);
     }
 
     [Fact]
     public void Test_Save()
     {
       //Arrange
-      Post testPost = new Post(5, "post text", new DateTime(2000, 1, 1));
-      testPost.Save();
+      UserPost testUserPost = new UserPost(5, "userpost text", new DateTime(2000, 1, 1));
+      testUserPost.Save();
       //Act
-      List<Post> result = Post.GetAll();
-      List<Post> testList = new List<Post>{testPost};
+      List<UserPost> result = UserPost.GetAll();
+      List<UserPost> testList = new List<UserPost>{testUserPost};
+      //Assert
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void Test_GetAll()
+    {
+      //Arrange
+      UserPost testUserPost = new UserPost(5, "userpost text", new DateTime(2000, 1, 1));
+      testUserPost.Save();
+      UserPost testUserPost2 = new UserPost(5, "userpost text", new DateTime(2000, 1, 1));
+      testUserPost2.Save();
+      //Act
+      List<UserPost> result = UserPost.GetAll();
+      List<UserPost> testList = new List<UserPost>{testUserPost, testUserPost2};
       //Assert
       Assert.Equal(testList, result);
     }
@@ -49,33 +64,67 @@ namespace BarterNamespace
     public void Test_SaveAssignsIdToObject()
     {
       //Arrange
-      Post testPost = new Post(5, "post text", new DateTime(2000, 1, 1));
-      testPost.Save();
+      UserPost testUserPost = new UserPost(5, "userpost text", new DateTime(2000, 1, 1));
+      testUserPost.Save();
       //Act
-      Post savedPost = Post.GetAll()[0];
-      int result = savedPost.GetId();
-      int testId = testPost.GetId();
+      UserPost savedUserPost = UserPost.GetAll()[0];
+      int result = savedUserPost.GetId();
+      int testId = testUserPost.GetId();
       //Assert
       Assert.Equal(testId, result);
     }
 
+
     [Fact]
-    public void Test_FindFindsPostInDatabase()
+    public void Test_UpdateUserPost()
     {
       //Arrange
-      Post testPost = new Post(5, "post text", new DateTime(2000, 1, 1));
-      testPost.Save();
+      UserPost testUserPost = new UserPost(5, "userpost text", new DateTime(2000, 1, 1));
+      testUserPost.Save();
+      //Arrang
+      string newUserPost = "new userpost text";
       //Act
-      Post result = Post.Find(testPost.GetId());
+      testUserPost.Update(newUserPost);
+      string result = testUserPost.GetUserPost();
       //Assert
-      Assert.Equal(testPost, result);
+      Assert.Equal(newUserPost, result);
+    }
+    [Fact]
+
+    public void Test_Delete_DeletesUserPostFromDatabase()
+    {
+      //Arrange
+      string name1 = "Soccer";
+      UserPost testUserPost1 = new UserPost(5, name1, new DateTime(2000, 1, 1));
+      testUserPost1.Save();
+      string name2 = "Dancing";
+      UserPost testUserPost2 = new UserPost(5, name2, new DateTime(2000, 1, 1));
+      testUserPost2.Save();
+      //Act
+      testUserPost1.Delete();
+      List<UserPost> resultUserPosts = UserPost.GetAll();
+      List<UserPost> testUserPostList = new List<UserPost> {testUserPost2};
+      //Assert
+      Assert.Equal(testUserPostList, resultUserPosts);
+    }
+
+    [Fact]
+    public void Test_FindFindsUserPostInDatabase()
+    {
+      //Arrange
+      UserPost testUserPost = new UserPost(5, "userpost text", new DateTime(2000, 1, 1));
+      testUserPost.Save();
+      //Act
+      UserPost result = UserPost.Find(testUserPost.GetId());
+      //Assert
+      Assert.Equal(testUserPost, result);
     }
 
 
     [Fact]
     public void Dispose()
     {
-      Post.DeleteAll();
+      UserPost.DeleteAll();
     }
   }
 }
