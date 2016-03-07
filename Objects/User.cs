@@ -29,7 +29,13 @@ namespace BarterNameSpace
         }
         else
         {
-            
+            User newUser = (User) otherUser;
+            bool idEquality = this.GetId() == newUser.GetId();
+            bool emailEquality = this.GetEmail() == newUser.GetEmail();
+            bool pictureEquality = this.GetPicture() == newUser.GetPicture();
+            bool passwordEquality = this.GetPassword() == newUser.GetPassword();
+            bool locationEquality = this.GetLocation() == newUser.GetLocation();
+            return (idEquality && emailEquality && pictureEquality && passwordEquality && locationEquality);   
         }
     }  
   }
