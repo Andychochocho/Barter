@@ -99,7 +99,6 @@ namespace BarterNameSpace
 
             return allUsers;
         }
-    
     public void Save()
     {
         SqlConnection conn = DB.Connection();
@@ -139,9 +138,9 @@ namespace BarterNameSpace
             rdr.Close();
         }
         if(conn != null)
-        {
-            conn.Close();
+            {
+                conn.Close();
+            }
         }
     }
-  }
 }
