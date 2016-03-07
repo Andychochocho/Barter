@@ -8,7 +8,7 @@ namespace BarterNamespace
     public static SqlConnection Connection()
     {
       SqlConnection conn = new SqlConnection(DBConfiguration.ConnectionString);
-      return conn;
+     return conn;
     }
   }
 }
