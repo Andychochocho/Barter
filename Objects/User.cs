@@ -142,6 +142,7 @@ namespace BarterNameSpace
                 conn.Close();
             }
         }
+<<<<<<< HEAD
 
         public static User Find(int id)
         {
@@ -183,6 +184,14 @@ namespace BarterNameSpace
                 conn.Close();
             }
             return newUser;
+        }
+        public static void DeleteAll()
+        {
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("DELETE FROM barter_users;", conn);
+            cmd.ExecuteNonQuery();
+
         }
     }
 }
