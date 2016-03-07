@@ -21,10 +21,12 @@ namespace BarterNamespace
         return View["index.cshtml", newDictionary];
       };
 
-      Post["/postForm"] = _ => {
+      Post["/postForm/{id}"] = parameters => {
         DateTime currentTime = DateTime.Now;
-        UserPost newPost = new UserPost(5, Request.Form["post"], currentTime);
+        UserPost userId = UserPost.Find(parameters.id);
+        UserPost newPost = new UserPost(userId.GetId(), Request.Form["post"], currentTime);
         newPost.Save();
+
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> AllPosts = UserPost.GetAll();
         List<User> AllUsers = User.GetAll();
@@ -53,10 +55,6 @@ namespace BarterNamespace
         User foundUser = User.Find(parameters.id);
         return View["profile.cshtml", foundUser];
       };
-
-
-
-
 
     }
   }

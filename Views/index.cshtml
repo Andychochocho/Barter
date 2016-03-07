@@ -7,7 +7,7 @@
 {
   foreach(var post in @Model["posts"])
   {
-    <p>@post.GetUserPost() - @post.GetDate()</p>
+    <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id()</p>
   }
 }
 else {
@@ -20,7 +20,8 @@ else {
 {
   foreach(var user in @Model["users"])
   {
-    <a href = "/profile/@user.GetId()"<p>@user.GetEmail()</p>
+    <img src = "@user.GetPicture()" height = "100" width = "100"></img>
+    <a href = "/profile/@user.GetId()"><p>@user.GetEmail()</p></a>
   }
 }
 else {
