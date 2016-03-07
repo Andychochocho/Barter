@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
 
-namespace BarterNameSpace
+namespace BarterNamespace
 {
     public class User
     {
@@ -73,7 +73,7 @@ namespace BarterNameSpace
             SqlDataReader rdr = null;
             conn.Open();
 
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Users;", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM barter_users;", conn);
             rdr = cmd.ExecuteReader();
 
             while (rdr.Read())
@@ -142,7 +142,7 @@ namespace BarterNameSpace
                 conn.Close();
             }
         }
-<<<<<<< HEAD
+
 
         public static User Find(int id)
         {

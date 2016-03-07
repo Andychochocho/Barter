@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Shoe Store</title>
-  </head>
-<body>
-<form class="" action="/postForm" method="post">
-  <input type="text" name="post" value="">
-  <label for="post">Post something</label>
-  <button type="submit" name="button">Click here</button>
-</form>
-@if (@Model != null)
+@Html.Partial("head.cshtml")
+  <a href="/newuser">Create Account</a>
+  <a href="/login">Sign in</a>
+  <hr />
+
+@if (@Model["posts"] != null)
 {
-  foreach(var post in @Model)
+  foreach(var post in @Model["posts"])
   {
     <p>@post.GetUserPost() - @post.GetDate()</p>
   }
@@ -23,5 +16,15 @@ else {
   </p>
 }
 
-</body>
-</html>
+@if (@Model["users"] != null)
+{
+  foreach(var user in @Model["users"])
+  {
+    <a href = "/profile/@user.GetId()"<p>@user.GetEmail()</p>
+  }
+}
+else {
+  <p>
+    No users yet.
+  </p>
+}
