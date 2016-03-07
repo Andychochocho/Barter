@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
 
-namespace BarterNameSpace
+namespace BarterNamespace
 {
     public class User
     {
