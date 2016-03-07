@@ -37,6 +37,31 @@ namespace BarterNameSpace
             bool locationEquality = this.GetLocation() == newUser.GetLocation();
             return (idEquality && emailEquality && pictureEquality && passwordEquality && locationEquality);   
         }
-    }  
+    }
+    
+    public string GetEmail()
+    {
+        return _email;
+    } 
+    
+    public string GetPicture()
+    {
+        return _picture;
+    }
+    
+    public string GetPassword()
+    {
+        return _password;
+    }
+    
+    public string GetLocation()
+    {
+        return _location;
+    }
+    
+    public int GetId()
+    {
+        return _id;
+    }
   }
 }
