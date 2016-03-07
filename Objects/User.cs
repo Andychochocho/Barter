@@ -142,7 +142,6 @@ namespace BarterNameSpace
                 conn.Close();
             }
         }
-<<<<<<< HEAD
 
         public static User Find(int id)
         {
