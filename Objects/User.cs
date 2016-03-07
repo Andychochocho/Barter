@@ -113,17 +113,17 @@ namespace BarterNameSpace
         emailNameParameter.Value= this.GetEmail();
         cmd.Parameters.Add(emailNameParameter);
         
-        SqlParameter picNameParameter = newSqlParameter();
+        SqlParameter picNameParameter = new SqlParameter();
         picNameParameter.ParameterName = "@Picture";
         picNameParameter.Value= this.GetPicture();
         cmd.Parameters.Add(picNameParameter);
         
-        SqlParameter user_passwordNameParameter = newSqlParameter();
+        SqlParameter user_passwordNameParameter = new SqlParameter();
         user_passwordNameParameter.ParameterName = "@Password";
         user_passwordNameParameter.Value= this.GetPassword();
         cmd.Parameters.Add(user_passwordNameParameter);
         
-        SqlParameter user_locationNameParameter = newSqlParameter();
+        SqlParameter user_locationNameParameter = new SqlParameter();
         user_locationNameParameter.ParameterName = "@Location";
         user_locationNameParameter.Value= this.GetLocation();
         cmd.Parameters.Add(user_locationNameParameter);                
@@ -134,7 +134,7 @@ namespace BarterNameSpace
         {
             this._id = rdr.GetInt32(0);
         }
-        if (rdr !- null)
+        if (rdr != null)
         {
             rdr.Close();
         }
