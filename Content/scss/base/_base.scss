@@ -1,0 +1,36 @@
+/* Wireframing */
+
+*:not(body):not(html) {
+  box-sizing: border-box;
+  border: 1px solid grey;
+}
+
+.hero {
+  height: 400px;
+  background-color: #666;
+}
+
+/* End Wireframing */
+
+/* Base Elements */
+
+body {
+  font-family: sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Lists */
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}

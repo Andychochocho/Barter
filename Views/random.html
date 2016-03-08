@@ -1,0 +1,48 @@
+<a href="/newuser">Create Account</a>
+<a href="/login">Sign in</a>
+<hr />
+
+<h1 class = "title">Barter List</h1>
+<hr />
+
+</br>
+
+<div class = "row">
+
+<div class = "posts col-sm-6">
+@if (@Model["posts"] != null)
+{
+foreach(var post in @Model["posts"])
+{
+  <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() - @post.GetUserEmail()</p>
+
+}
+}
+else {
+<p>
+  No posts yet.
+</p>
+}
+
+</div>
+
+<div class = "profiles col-sm-6">
+@if (@Model["users"] != null)
+{
+foreach(var user in @Model["users"])
+{
+  <img src = "@user.GetPicture()" height = "100" width = "100"></img>
+  <a href = "/profile/@user.GetId()"><p>@user.GetEmail()</p></a>
+}
+}
+else {
+<p>
+  No users yet.
+</p>
+}
+</div>
+
+
+</div>
+
+</div>

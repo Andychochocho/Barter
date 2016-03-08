@@ -1,31 +1,68 @@
 @Html.Partial("head.cshtml")
-  <a href="/newuser">Create Account</a>
-  <a href="/login">Sign in</a>
-  <hr />
 
-@if (@Model["posts"] != null)
-{
-  foreach(var post in @Model["posts"])
-  {
-    <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id()</p>
-  }
-}
-else {
-  <p>
-    No posts yet.
-  </p>
-}
 
-@if (@Model["users"] != null)
-{
-  foreach(var user in @Model["users"])
-  {
-    <img src = "@user.GetPicture()" height = "100" width = "100"></img>
-    <a href = "/profile/@user.GetId()"><p>@user.GetEmail()</p></a>
-  }
-}
-else {
-  <p>
-    No users yet.
-  </p>
-}
+  <body>
+    <div class="container-full">
+      <div class="hero">
+        <div class="nav">
+          <h1 class="brand">Barter</h1>
+          <ul>
+            <li class="menu-toggle">=</li>
+            <li><a href="/login">Sign in</a></li>
+            <li><a href="/newuser">Create Account</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container cta">
+        <h2>A bartering network for creative services</h2>
+        <button class="btn-cta">Get Started</button>
+      </div>
+      <div class="container">
+        <div class = "row">
+        <div class="info-section">
+          <div class="info-item col-sm-6">
+            @if (@Model["posts"] != null)
+            {
+              foreach(var post in @Model["posts"])
+              {
+                <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() - <a href = "/email/@post.GetUser_Id()">@post.GetUserEmail()</a></p>
+
+              }
+            }
+            else {
+              <p>
+                No posts yet.
+              </p>
+            }
+          </div>
+          <div class="info-item col-sm-6">
+            @if (@Model["users"] != null)
+            {
+              foreach(var user in @Model["users"])
+              {
+                <img src = "@user.GetPicture()" height = "100" width = "100"></img>
+                <a href = "/profile/@user.GetId()"><p>@user.GetEmail()</p></a>
+              }
+            }
+            else {
+              <p>
+                No users yet.
+              </p>
+            }
+
+          </div>
+          <div class="info-item">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+        <div class="preview-section">
+          <div class="preview-item">
+            <p>Preview stuff goes here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>

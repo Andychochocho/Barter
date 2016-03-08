@@ -1,0 +1,32 @@
+/* Nav */
+
+.nav {
+  overflow: auto;
+  .brand {
+    float: left;
+  }
+  ul {
+    float: right;
+    &::after {
+      @include clearfix;
+    }
+  }
+  li {
+    margin: 0 $m-margin;
+  }
+  li:not(.menu-toggle) {
+    display: none;
+    @media screen and (min-width: $large-breakpoint) {
+      display: block;
+      float: left;
+    }
+  }
+  .menu-toggle {
+    @media screen and (min-width: $large-breakpoint) {
+      display: none;
+    }
+  }
+}
+
+.cta {
+}

@@ -1,0 +1,5 @@
+.btn-cta {
+  @include button(pink);
+  width: 60%;
+  margin: $s-margin 20%;
+}

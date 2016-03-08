@@ -1,0 +1,16 @@
+@mixin clearfix {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@mixin button($color) {
+  font-size: 1.2em;
+  border-radius: 3px;
+  border-style: none;
+  background-color: $color;
+}
+
+@mixin centeritem {
+  margin: 0 auto;
+}
