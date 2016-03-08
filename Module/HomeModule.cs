@@ -12,6 +12,7 @@ namespace BarterNamespace
   {
     public HomeModule()
     {
+
       Get["/"] = _ => {
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
 
@@ -24,6 +25,10 @@ namespace BarterNamespace
         // newDictionary.Add("user", findUser);
 
         return View["index.cshtml", newDictionary];
+      };
+
+      Get["/about"] = _ => {
+        return View["about.cshtml"];
       };
 
       Post["/postForm/{id}"] = parameters => {
@@ -67,6 +72,24 @@ namespace BarterNamespace
 
       Get["/login"] = _ => {
         return View["login.cshtml"];
+      };
+
+      Get["/email/{id}"] = parameters => {
+        User foundUser = User.Find(parameters.id);
+        return View["email_form.cshtml", foundUser];
+      };
+
+      Post["/email/{id}"] = parameters => {
+        User foundUser = User.Find(parameters.id);
+        DateTime TimeStamp = DateTime.Now;
+        Email newEmail = new Email(foundUser.GetId(), Request.Form["email"], TimeStamp);
+        newEmail.Save();
+        Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+        List<UserPost> AllPosts = UserPost.GetAll();
+        List<User> AllUsers = User.GetAll();
+        newDictionary.Add("posts", AllPosts);
+        newDictionary.Add("users", AllUsers);
+        return View["index.cshtml", newDictionary];
       };
 
       // Post["/login"] = _ => {

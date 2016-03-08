@@ -10,7 +10,7 @@
             <li class="menu-toggle">=</li>
             <li><a href="/login">Sign in</a></li>
             <li><a href="/newuser">Create Account</a></li>
-            <li>About</li>
+            <li><a href="/about">About</a></li>
           </ul>
         </div>
       </div>
@@ -26,7 +26,7 @@
             {
               foreach(var post in @Model["posts"])
               {
-                <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() - <a href = "#">@post.GetUserEmail()</a></p>
+                <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() - <a href = "/email/@post.GetUser_Id()">@post.GetUserEmail()</a></p>
 
               }
             }

@@ -1,0 +1,7 @@
+@Html.Partial("head.cshtml")
+<h3>Email: </h3>
+<form action="/email/@Model.GetId()" method="post">
+  <label for="email">Email:</label>
+  <input type="text" name="email">
+  <button type="submit" name="button">Send Email</button>
+</form>

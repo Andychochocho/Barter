@@ -1,5 +1,7 @@
 @Html.Partial("head.cshtml")
 <h1>@Model.GetEmail()</h1>
+<div class = "container">
+  <div class = "row">
 <h3><img src="@Model.GetPicture()" height = "300" width = "300" alt=""></h3>
 <h3>@Model.GetLocation()</h3>
 
@@ -10,11 +12,23 @@
   <button type="submit" name="button">Click here</button>
 </form>
 
+<div class = "col-sm-6">
 @foreach (var post in @Model.GetPosts())
 {
   <li>@post.GetUserPost()</li>
 
 
 }
+</div>
+
+<div class = "col-sm-6">
+@foreach (var email in @Model.GetEmails())
+{
+  <li>@email.GetEmail()</li>
+}
+</div>
 
 <a href="/">Home</a>
+
+</div>
+</div>
