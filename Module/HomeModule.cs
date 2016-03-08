@@ -4,15 +4,16 @@ using Nancy;
 using Nancy.ViewEngines.Razor;
 using System.Globalization;
 using System.Security;
+using System.Net;
+using System.Web;
 
 
 namespace BarterNamespace
 {
-  public class HomeModule : NancyModule
-  {
-    public HomeModule()
+    public class HomeModule : NancyModule
     {
 
+<<<<<<< HEAD
       Get["/"] = _ => {
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
 
@@ -93,20 +94,21 @@ namespace BarterNamespace
         return View["index.cshtml", newDictionary];
       };
 
-      // Post["/login"] = _ => {
-      //
-      //    LogOnModel logOnModel = new LogOnModel();
-      //
-      //    var existingCookie = Request.Cookies["userName"];
-      //    if (existingCookie != null)
-      //    {
-      //       logOnModel.UserName = existingCookie.Value;
-      //    }
-      //   return View["index.cshtml"];
-      // };
+      //             Post["/login"] = _ =>
+      //             {
 
+      //                     var newUser = User.MatchUser(Request.Form["user-email"], Request.Form["user-password"]);
+      //                     if (newUser == true)
+      //                     {
+      //                         HttpCookie userCookie = new HttpCookie("user");
+      // userCookie.Expires.AddDays(365);
+      //                         HttpContext.Response.Cookies.Add(userCookie);
 
+      //                         return RedirectToActionPermanent("Index");
+      //                     }
+
+      //                 return View["index.cshtml"];
+      //             };
 
     }
-  }
 }
