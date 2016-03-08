@@ -151,7 +151,7 @@ namespace BarterNamespace
 
           List<UserPost> userposts = new List<UserPost>{};
 
-          SqlCommand cmd = new SqlCommand("SELECT posts.* FROM posts WHERE barter_user_id = @userId ", conn);
+          SqlCommand cmd = new SqlCommand("SELECT posts.* FROM posts WHERE barter_user_id = @userId", conn);
 
           SqlParameter UserIdParameter = new SqlParameter();
           UserIdParameter.ParameterName = "@userId";

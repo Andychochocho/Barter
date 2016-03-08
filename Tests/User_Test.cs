@@ -20,14 +20,17 @@ namespace BarterNamespace
       User testUser = new User("steve@aol.com","pic","Password","location");
       testUser.Save();
 
-      UserPost testPost = new UserPost(5, "Magic Johnson", new DateTime(2000, 1, 1));
+      UserPost testPost = new UserPost(testUser.GetId(), "Magic Johnson", new DateTime(2000, 1, 1));
       testPost.Save();
       //Act
 
       List<UserPost> result = testUser.GetPosts();
+
+
       Console.WriteLine(testUser.GetEmail());
       Console.WriteLine(testPost.GetUserPost());
       Console.WriteLine(result.Count);
+
       List<UserPost> testList = new List<UserPost> {testPost};
       //Assert
       Assert.Equal(testList, result);
