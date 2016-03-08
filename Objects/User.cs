@@ -63,7 +63,6 @@ namespace BarterNamespace
             return _id;
         }
 
-
         public static List<User> GetAll()
         {
             List<User> allUsers = new List<User> { };
