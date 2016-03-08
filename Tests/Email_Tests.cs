@@ -40,7 +40,15 @@ namespace BarterNamespace
       testEmail.Save();
       //Act
       List<Email> result = Email.GetAll();
+
+      Console.WriteLine(result.Count);
+
+
+
       List<Email> testList = new List<Email>{testEmail};
+      Console.WriteLine(testList.Count);
+      
+
       //Assert
       Assert.Equal(testList, result);
     }
@@ -76,7 +84,7 @@ namespace BarterNamespace
     public void Dispose()
     {
       Email.DeleteAll();
-    
+
     }
   }
 }

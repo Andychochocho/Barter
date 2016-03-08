@@ -1,7 +1,13 @@
 @Html.Partial("head.cshtml")
 <h3>Email: </h3>
-<form action="/email/@Model.GetId()" method="post">
+<form action='/email/@Model["user"].GetId()' method="post">
   <label for="email">Email:</label>
   <input type="text" name="email">
+  <select name = "sender">
+  @foreach(var user in @Model["users"])
+  {
+  <option value = @user.GetId()>@user.GetEmail()</option>
+  }
+</select>
   <button type="submit" name="button">Send Email</button>
 </form>

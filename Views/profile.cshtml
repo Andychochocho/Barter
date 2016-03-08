@@ -24,7 +24,8 @@
 <div class = "col-sm-6">
 @foreach (var email in @Model.GetEmails())
 {
-  <li>@email.GetEmail()</li>
+  <li>Message: @email.GetEmail()</li>
+  <li>Email Sender: @email.GetSenderEmail()</li>
 }
 </div>
 

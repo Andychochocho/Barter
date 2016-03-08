@@ -79,43 +79,44 @@ namespace BarterNamespace
 
         public static List<Email> GetAll()
         {
-            List<Email> allEmails = new List<Email> { };
+          List<Email> allEmails = new List<Email> { };
 
-            SqlConnection conn = DB.Connection();
-            SqlDataReader rdr = null;
-            conn.Open();
+          SqlConnection conn = DB.Connection();
+          SqlDataReader rdr = null;
+          conn.Open();
 
-            SqlCommand cmd = new SqlCommand("SELECT * FROM emails;", conn);
-            rdr = cmd.ExecuteReader();
+          SqlCommand cmd = new SqlCommand("SELECT * FROM emails;", conn);
 
+          rdr = cmd.ExecuteReader();
 
-            int foundEmailId = 0;
-            string foundEmail = null;
-            int foundUserId = 0;
-            DateTime foundDateTime = new DateTime(2016, 1, 1);
-            int foundSenderId = 0;
+          //
+          // int foundEmailId = 0;
+          // string foundEmail = null;
+          // int foundUserId = 0;
+          // DateTime foundDateTime = new DateTime(2016, 1, 1);
+          // int foundSenderId = 0;
 
-            while (rdr.Read())
-            {
-                foundEmailId = rdr.GetInt32(0);
-                foundUserId = rdr.GetInt32(1);
-                foundEmail = rdr.GetString(2);
-                foundDateTime = rdr.GetDateTime(3);
-                foundSenderId = rdr.GetInt32(4);
-                Email newEmail = new Email(foundUserId, foundEmail, foundDateTime, foundSenderId, foundEmailId);
-                allEmails.Add(newEmail);
-            }
+          while (rdr.Read())
+          {
+              int foundEmailId = rdr.GetInt32(0);
+              int foundUserId = rdr.GetInt32(1);
+              string foundEmail = rdr.GetString(2);
+              DateTime foundDateTime = rdr.GetDateTime(3);
+              int foundSenderId = rdr.GetInt32(4);
+              Email newEmail = new Email(foundUserId, foundEmail, foundDateTime, foundSenderId, foundEmailId);
+              allEmails.Add(newEmail);
+          }
 
-            if (rdr != null)
-            {
-                rdr.Close();
-            }
-            if (conn != null)
-            {
-                conn.Close();
-            }
+          if (rdr != null)
+          {
+              rdr.Close();
+          }
+          if (conn != null)
+          {
+              conn.Close();
+          }
 
-            return allEmails;
+          return allEmails;
         }
 
         public void Save()
@@ -161,6 +162,54 @@ namespace BarterNamespace
                 conn.Close();
             }
         }
+
+        public string GetSenderEmail()
+        {
+            SqlConnection conn = DB.Connection();
+            SqlDataReader rdr = null;
+            conn.Open();
+
+            // string email = " "
+
+            SqlCommand cmd = new SqlCommand("SELECT barter_users.* FROM barter_users WHERE id = @userPostId", conn);
+
+            SqlParameter UserIdParameter = new SqlParameter();
+            UserIdParameter.ParameterName = "@userPostId";
+            UserIdParameter.Value = this.GetSender_Id();
+
+            cmd.Parameters.Add(UserIdParameter);
+
+            rdr = cmd.ExecuteReader();
+
+            int postId = 0;
+            string email = null;
+            string pic = null;
+            string password = null;
+            string location = null;
+
+            while (rdr.Read())
+            {
+                postId = rdr.GetInt32(0);
+                email = rdr.GetString(1);
+                pic = rdr.GetString(2);
+                password = rdr.GetString(3);
+                location = rdr.GetString(4);
+
+            }
+            User newUser = new User(email, pic, password, location, postId);
+
+            if (rdr != null)
+            {
+                rdr.Close();
+            }
+            if (conn != null)
+            {
+                conn.Close();
+            }
+            string userEmail = newUser.GetEmail();
+            return userEmail;
+        }
+
 
         public static void DeleteAll()
         {

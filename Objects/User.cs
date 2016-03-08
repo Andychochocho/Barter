@@ -232,7 +232,6 @@ namespace BarterNamespace
             SqlParameter UserIdParameter = new SqlParameter();
             UserIdParameter.ParameterName = "@userId";
             UserIdParameter.Value = this.GetId();
-
             cmd.Parameters.Add(UserIdParameter);
 
             rdr = cmd.ExecuteReader();
@@ -241,7 +240,7 @@ namespace BarterNamespace
             string foundEmail = null;
             int foundUserId = 0;
             DateTime foundDateTime = new DateTime(2016, 1, 1);
-            int foundSenderId = 0;
+            int foundSenderId = 1;
 
             while (rdr.Read())
             {
