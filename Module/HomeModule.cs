@@ -20,6 +20,9 @@ namespace BarterNamespace
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
 
+        // User findUser = User.Find(userId.GetUser_Id());
+        // newDictionary.Add("user", findUser);
+
         return View["index.cshtml", newDictionary];
       };
 
@@ -32,6 +35,10 @@ namespace BarterNamespace
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> AllPosts = UserPost.GetAll();
         List<User> AllUsers = User.GetAll();
+
+        // User findUser = User.Find(userId.GetUser_Id());
+        // newDictionary.Add("user", findUser);
+
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
         return View["index.cshtml", newDictionary];
@@ -57,24 +64,24 @@ namespace BarterNamespace
         User foundUser = User.Find(parameters.id);
         return View["profile.cshtml", foundUser];
       };
-      
+
       Get["/login"] = _ => {
-        return View["login.cshtml"];  
+        return View["login.cshtml"];
       };
 
-      Post["/login"] = _ => {
-         
-         LogOnModel logOnModel = new LogOnModel();
+      // Post["/login"] = _ => {
+      //
+      //    LogOnModel logOnModel = new LogOnModel();
+      //
+      //    var existingCookie = Request.Cookies["userName"];
+      //    if (existingCookie != null)
+      //    {
+      //       logOnModel.UserName = existingCookie.Value;
+      //    }
+      //   return View["index.cshtml"];
+      // };
 
-         var existingCookie = Request.Cookies["userName"];
-         if (existingCookie != null)
-         {
-            logOnModel.UserName = existingCookie.Value;
-         }  
-        return View["index.cshtml"];  
-      };
-      
-      
+
 
     }
   }

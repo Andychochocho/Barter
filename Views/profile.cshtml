@@ -3,6 +3,7 @@
 <h3><img src="@Model.GetPicture()" alt=""></h3>
 <h3>@Model.GetLocation()</h3>
 
+
 <form class="" action="/postForm/@Model.GetId()" method="post">
   <input type="text" name="post" value="">
   <label for="post">Post something</label>
@@ -12,4 +13,8 @@
 @foreach (var post in @Model.GetPosts())
 {
   <li>@post.GetUserPost()</li>
+
+
 }
+
+<a href="/">Home</a>

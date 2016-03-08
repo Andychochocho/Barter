@@ -1,0 +1,14 @@
+.container-full {
+  width: 100%;
+}
+
+.container {
+  width: 95%;
+  margin: 0 auto;
+  @media screen and (min-width: $medium-breakpoint) {
+    width: 90%;
+  }
+  @media screen and (min-width: $large-breakpoint) {
+    width: 80%;
+  }
+}
