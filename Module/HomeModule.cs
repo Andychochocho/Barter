@@ -4,16 +4,15 @@ using Nancy;
 using Nancy.ViewEngines.Razor;
 using System.Globalization;
 using System.Security;
-using System.Net;
-using System.Web;
 
 
 namespace BarterNamespace
 {
-    public class HomeModule : NancyModule
+  public class HomeModule : NancyModule
+  {
+    public HomeModule()
     {
 
-<<<<<<< HEAD
       Get["/"] = _ => {
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
 
@@ -22,8 +21,6 @@ namespace BarterNamespace
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
 
-        // User findUser = User.Find(userId.GetUser_Id());
-        // newDictionary.Add("user", findUser);
 
         return View["index.cshtml", newDictionary];
       };
@@ -42,8 +39,6 @@ namespace BarterNamespace
         List<UserPost> AllPosts = UserPost.GetAll();
         List<User> AllUsers = User.GetAll();
 
-        // User findUser = User.Find(userId.GetUser_Id());
-        // newDictionary.Add("user", findUser);
 
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
@@ -81,34 +76,32 @@ namespace BarterNamespace
       };
 
       Post["/email/{id}"] = parameters => {
-        User foundUser = User.Find(parameters.id);
-        DateTime TimeStamp = DateTime.Now;
-        User sendingUser = User.Find(Request.Form["userList"]);
-        Email newEmail = new Email(foundUser.GetId(), Request.Form["email"], TimeStamp, sendingUser.GetId());
-        newEmail.Save();
-        Dictionary<string, object> newDictionary = new Dictionary<string, object>();
-        List<UserPost> AllPosts = UserPost.GetAll();
-        List<User> AllUsers = User.GetAll();
-        newDictionary.Add("posts", AllPosts);
-        newDictionary.Add("users", AllUsers);
-        return View["index.cshtml", newDictionary];
-      };
+      User foundUser = User.Find(parameters.id);
+      DateTime TimeStamp = DateTime.Now;
+      // User sendingUser = User.Find(Request.Form["userList"]);
+      Email newEmail = new Email(foundUser.GetId(), Request.Form["email"], TimeStamp, 1);
+      newEmail.Save();
+      Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+      List<UserPost> AllPosts = UserPost.GetAll();
+      List<User> AllUsers = User.GetAll();
+      newDictionary.Add("posts", AllPosts);
+      newDictionary.Add("users", AllUsers);
+      return View["index.cshtml", newDictionary];
+    };
+      // Post["/login"] = _ => {
+      //
+      //    LogOnModel logOnModel = new LogOnModel();
+      //
+      //    var existingCookie = Request.Cookies["userName"];
+      //    if (existingCookie != null)
+      //    {
+      //       logOnModel.UserName = existingCookie.Value;
+      //    }
+      //   return View["index.cshtml"];
+      // };
 
-      //             Post["/login"] = _ =>
-      //             {
 
-      //                     var newUser = User.MatchUser(Request.Form["user-email"], Request.Form["user-password"]);
-      //                     if (newUser == true)
-      //                     {
-      //                         HttpCookie userCookie = new HttpCookie("user");
-      // userCookie.Expires.AddDays(365);
-      //                         HttpContext.Response.Cookies.Add(userCookie);
-
-      //                         return RedirectToActionPermanent("Index");
-      //                     }
-
-      //                 return View["index.cshtml"];
-      //             };
 
     }
+  }
 }

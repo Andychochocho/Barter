@@ -243,7 +243,6 @@ namespace BarterNamespace
             DateTime foundDateTime = new DateTime(2016, 1, 1);
             int foundSenderId = 0;
 
-
             while (rdr.Read())
             {
                 foundEmailId = rdr.GetInt32(0);
@@ -253,8 +252,6 @@ namespace BarterNamespace
                 foundSenderId = rdr.GetInt32(4);
                 Email newEmail = new Email(foundUserId, foundEmail, foundDateTime, foundSenderId, foundEmailId);
                 userEmails.Add(newEmail);
-
-
             }
             if (rdr != null)
             {
