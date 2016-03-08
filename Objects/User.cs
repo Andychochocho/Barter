@@ -65,7 +65,7 @@ namespace BarterNamespace
             return _id;
         }
 
-        public bool MatchUser(string UserName, string Password)
+        public static bool MatchUser(string UserName, string Password)
         {
             var conn = DB.Connection();
             conn.Open();
