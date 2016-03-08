@@ -26,7 +26,7 @@
             {
               foreach(var post in @Model["posts"])
               {
-                <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() - @post.GetUserEmail()</p>
+                <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() - <a href = "#">@post.GetUserEmail()</a></p>
 
               }
             }
