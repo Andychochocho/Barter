@@ -8,3 +8,8 @@
   <label for="post">Post something</label>
   <button type="submit" name="button">Click here</button>
 </form>
+
+@foreach (var post in @Model.GetPosts())
+{
+  <li>@post.GetUserPost()</li>
+}
