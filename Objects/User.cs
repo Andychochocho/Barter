@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
+using System.Data;
 
 namespace BarterNamespace
 {
@@ -64,23 +65,41 @@ namespace BarterNamespace
             return _id;
         }
 
-        public User MatchUser(string UserName, string Password)
+        public bool MatchUser(string UserName, string Password)
         {
             var conn = DB.Connection();
             conn.Open();
             
-            SqlCommand cmd = new SqlCommand("Select * from barter_users where email=@Email and user_password=@Password",conn);
+            SqlCommand cmd = new SqlCommand("Select * from barter_users where email=@Email and user_password=@Password", conn);
             
             var userNameParam = new SqlParameter();
             userNameParam.ParameterName = "@Email";
             userNameParam.Value = UserName;
             cmd.Parameters.Add(userNameParam);
-            
+
             var userPassParam = new SqlParameter();
             userPassParam.ParameterName = "@Password";
             userPassParam.Value = Password;
             cmd.Parameters.Add(userPassParam);
             
+            SqlDataAdapter adapt = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            adapt.Fill(ds);
+            conn.Close();
+            
+            int count = ds.Tables[0].Rows.Count;
+            
+            if (count == 1)
+            {
+                Console.WriteLine(true);                
+                return true;
+            }
+            else
+            {
+                Console.WriteLine(false);
+                return false;
+            }
+           
             
         }
 
@@ -164,41 +183,41 @@ namespace BarterNamespace
 
         public List<UserPost> GetPosts()
         {
-          SqlConnection conn = DB.Connection();
-          SqlDataReader rdr = null;
-          conn.Open();
+            SqlConnection conn = DB.Connection();
+            SqlDataReader rdr = null;
+            conn.Open();
 
-          List<UserPost> userposts = new List<UserPost>{};
+            List<UserPost> userposts = new List<UserPost> { };
 
-          SqlCommand cmd = new SqlCommand("SELECT posts.* FROM posts WHERE barter_user_id = @userId", conn);
+            SqlCommand cmd = new SqlCommand("SELECT posts.* FROM posts WHERE barter_user_id = @userId", conn);
 
-          SqlParameter UserIdParameter = new SqlParameter();
-          UserIdParameter.ParameterName = "@userId";
-          UserIdParameter.Value = this.GetId();
+            SqlParameter UserIdParameter = new SqlParameter();
+            UserIdParameter.ParameterName = "@userId";
+            UserIdParameter.Value = this.GetId();
 
-          cmd.Parameters.Add(UserIdParameter);
+            cmd.Parameters.Add(UserIdParameter);
 
-          rdr = cmd.ExecuteReader();
+            rdr = cmd.ExecuteReader();
 
-          while(rdr.Read())
-          {
-            int postId = rdr.GetInt32(0);
-            int userId = rdr.GetInt32(1);
-            string post = rdr.GetString(2);
-            DateTime timeStamp = rdr.GetDateTime(3);
+            while (rdr.Read())
+            {
+                int postId = rdr.GetInt32(0);
+                int userId = rdr.GetInt32(1);
+                string post = rdr.GetString(2);
+                DateTime timeStamp = rdr.GetDateTime(3);
 
-            UserPost newUserPost = new UserPost(userId, post, timeStamp, postId);
-            userposts.Add(newUserPost);
-          }
-          if (rdr != null)
-          {
-            rdr.Close();
-          }
-          if (conn != null)
-          {
-            conn.Close();
-          }
-          return userposts;
+                UserPost newUserPost = new UserPost(userId, post, timeStamp, postId);
+                userposts.Add(newUserPost);
+            }
+            if (rdr != null)
+            {
+                rdr.Close();
+            }
+            if (conn != null)
+            {
+                conn.Close();
+            }
+            return userposts;
         }
 
 
