@@ -10,14 +10,16 @@ namespace BarterNamespace
         private int _user_id;
         private string _email;
         private DateTime _date_time;
+        private int _sender_id;
 
 
-        public Email(int user_id, string email, DateTime date, int Id = 0)
+        public Email(int user_id, string email, DateTime date, int sender_id, int Id = 0)
         {
             _id = Id;
             _user_id = user_id;
             _email = email;
             _date_time = date;
+            _sender_id = sender_id;
         }
 
         public override bool Equals(System.Object otherEmail)
@@ -32,7 +34,9 @@ namespace BarterNamespace
                 bool idEquality = this.GetId() == newEmail.GetId();
                 bool user_idEquality = this.GetUser_Id() == newEmail.GetUser_Id();
                 bool email_Equality = this.GetEmail() == newEmail.GetEmail();
-                return (idEquality && user_idEquality && email_Equality);
+                bool senderIdEquality = this.GetSender_Id() == newEmail.GetSender_Id();
+                return (idEquality && user_idEquality && email_Equality && senderIdEquality);
+
             }
         }
 
@@ -64,8 +68,14 @@ namespace BarterNamespace
         {
             _user_id = newUser_Id;
         }
-
-
+        public int GetSender_Id()
+        {
+            return _sender_id;
+        }
+        public void SetSender_Id(int newSender_Id)
+        {
+            _sender_id = newSender_Id;
+        }
 
         public static List<Email> GetAll()
         {
@@ -78,14 +88,21 @@ namespace BarterNamespace
             SqlCommand cmd = new SqlCommand("SELECT * FROM emails;", conn);
             rdr = cmd.ExecuteReader();
 
+
+            int foundEmailId = 0;
+            string foundEmail = null;
+            int foundUserId = 0;
+            DateTime foundDateTime = new DateTime(2016, 1, 1);
+            int foundSenderId = 0;
+
             while (rdr.Read())
             {
-                int Id = rdr.GetInt32(0);
-                int User_id = rdr.GetInt32(1);
-                string Email = rdr.GetString(2);
-                DateTime Date = rdr.GetDateTime(3);
-
-                Email newEmail = new Email(User_id, Email, Date, Id);
+                foundEmailId = rdr.GetInt32(0);
+                foundUserId = rdr.GetInt32(1);
+                foundEmail = rdr.GetString(2);
+                foundDateTime = rdr.GetDateTime(3);
+                foundSenderId = rdr.GetInt32(4);
+                Email newEmail = new Email(foundUserId, foundEmail, foundDateTime, foundSenderId, foundEmailId);
                 allEmails.Add(newEmail);
             }
 
@@ -107,7 +124,7 @@ namespace BarterNamespace
             SqlDataReader rdr;
             conn.Open();
 
-            SqlCommand cmd = new SqlCommand("INSERT INTO emails (email, barter_user_id, time_stamp) OUTPUT INSERTED.id VALUES (@Email, @UserId, @TimeStamp);", conn);
+            SqlCommand cmd = new SqlCommand("INSERT INTO emails (email, barter_user_id, time_stamp, sender_id) OUTPUT INSERTED.id VALUES (@Email, @UserId, @TimeStamp, @SenderId);", conn);
 
             SqlParameter email_nameParameter = new SqlParameter();
             email_nameParameter.ParameterName = "@Email";
@@ -123,6 +140,11 @@ namespace BarterNamespace
             date_timeParameter.ParameterName = "@TimeStamp";
             date_timeParameter.Value = this.GetDate();
             cmd.Parameters.Add(date_timeParameter);
+
+            SqlParameter sender_idParameter = new SqlParameter();
+            sender_idParameter.ParameterName = "@SenderId";
+            sender_idParameter.Value = this.GetSender_Id();
+            cmd.Parameters.Add(sender_idParameter);
 
             rdr = cmd.ExecuteReader();
 
@@ -166,6 +188,7 @@ namespace BarterNamespace
             string foundEmail = null;
             int foundUserId = 0;
             DateTime foundDateTime = new DateTime(2016, 1, 1);
+            int foundSenderId = 0;
 
             while (rdr.Read())
             {
@@ -173,8 +196,9 @@ namespace BarterNamespace
                 foundUserId = rdr.GetInt32(1);
                 foundEmail = rdr.GetString(2);
                 foundDateTime = rdr.GetDateTime(3);
+                foundSenderId = rdr.GetInt32(4);
             }
-            Email newEmail = new Email(foundUserId, foundEmail, foundDateTime, foundEmailId);
+            Email newEmail = new Email(foundUserId, foundEmail, foundDateTime,  foundSenderId, foundEmailId);
 
             if (rdr != null)
             {

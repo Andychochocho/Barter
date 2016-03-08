@@ -82,7 +82,8 @@ namespace BarterNamespace
       Post["/email/{id}"] = parameters => {
         User foundUser = User.Find(parameters.id);
         DateTime TimeStamp = DateTime.Now;
-        Email newEmail = new Email(foundUser.GetId(), Request.Form["email"], TimeStamp);
+        User sendingUser = User.Find(Request.Form["userList"]);
+        Email newEmail = new Email(foundUser.GetId(), Request.Form["email"], TimeStamp, sendingUser.GetId());
         newEmail.Save();
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> AllPosts = UserPost.GetAll();

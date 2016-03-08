@@ -26,8 +26,8 @@ namespace BarterNamespace
     public void Test_EqualOverrideTrueForSameDescription()
     {
       //Arrange, Act
-      Email firstEmail = new Email(5, "email text", new DateTime(2000, 1, 1));
-      Email secondEmail = new Email(5, "email text", new DateTime(2000, 1, 1));
+      Email firstEmail = new Email(5, "email text", new DateTime(2000, 1, 1), 1);
+      Email secondEmail = new Email(5, "email text", new DateTime(2000, 1, 1), 1);
       //Assert
       Assert.Equal(firstEmail, secondEmail);
     }
@@ -36,7 +36,7 @@ namespace BarterNamespace
     public void Test_Save()
     {
       //Arrange
-      Email testEmail = new Email(5, "email text", new DateTime(2000, 1, 1));
+      Email testEmail = new Email(5, "email text", new DateTime(2000, 1, 1), 1);
       testEmail.Save();
       //Act
       List<Email> result = Email.GetAll();
@@ -49,7 +49,7 @@ namespace BarterNamespace
     public void Test_SaveAssignsIdToObject()
     {
       //Arrange
-      Email testEmail = new Email(5, "email text", new DateTime(2000, 1, 1));
+      Email testEmail = new Email(5, "email text", new DateTime(2000, 1, 1), 1);
       testEmail.Save();
       //Act
       Email savedEmail = Email.GetAll()[0];
@@ -63,7 +63,7 @@ namespace BarterNamespace
     public void Test_FindFindsEmailInDatabase()
     {
       //Arrange
-      Email testEmail = new Email(5, "email text", new DateTime(2000, 1, 1));
+      Email testEmail = new Email(5, "email text", new DateTime(2000, 1, 1), 1);
       testEmail.Save();
       //Act
       Email result = Email.Find(testEmail.GetId());
@@ -76,6 +76,7 @@ namespace BarterNamespace
     public void Dispose()
     {
       Email.DeleteAll();
+    
     }
   }
 }
