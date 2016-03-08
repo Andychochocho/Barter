@@ -63,6 +63,25 @@ namespace BarterNamespace
             return _id;
         }
 
+        public User MatchUser(string UserName, string Password)
+        {
+            var conn = DB.Connection();
+            conn.Open();
+            
+            SqlCommand cmd = new SqlCommand("Select * from barter_users where email=@Email and user_password=@Password",conn);
+            
+            var userNameParam = new SqlParameter();
+            userNameParam.ParameterName = "@Email";
+            userNameParam.Value = UserName;
+            cmd.Parameters.Add(userNameParam);
+            
+            var userPassParam = new SqlParameter();
+            userPassParam.ParameterName = "@Password";
+            userPassParam.Value = Password;
+            cmd.Parameters.Add(userPassParam);
+            
+            
+        }
 
         public static List<User> GetAll()
         {

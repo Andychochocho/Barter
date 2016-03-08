@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Nancy;
 using Nancy.ViewEngines.Razor;
 using System.Globalization;
+using System.Security;
+
 
 namespace BarterNamespace
 {
@@ -55,6 +57,24 @@ namespace BarterNamespace
         User foundUser = User.Find(parameters.id);
         return View["profile.cshtml", foundUser];
       };
+      
+      Get["/login"] = _ => {
+        return View["login.cshtml"];  
+      };
+
+      Post["/login"] = _ => {
+         
+         LogOnModel logOnModel = new LogOnModel();
+
+         var existingCookie = Request.Cookies["userName"];
+         if (existingCookie != null)
+         {
+            logOnModel.UserName = existingCookie.Value;
+         }  
+        return View["index.cshtml"];  
+      };
+      
+      
 
     }
   }
