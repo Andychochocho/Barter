@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System;
 
 namespace BarterNamespace
 {
@@ -159,6 +160,45 @@ namespace BarterNamespace
             {
                 conn.Close();
             }
+        }
+
+        public List<UserPost> GetPosts()
+        {
+          SqlConnection conn = DB.Connection();
+          SqlDataReader rdr = null;
+          conn.Open();
+
+          List<UserPost> userposts = new List<UserPost>{};
+
+          SqlCommand cmd = new SqlCommand("SELECT posts.* FROM posts WHERE barter_user_id = @userId", conn);
+
+          SqlParameter UserIdParameter = new SqlParameter();
+          UserIdParameter.ParameterName = "@userId";
+          UserIdParameter.Value = this.GetId();
+
+          cmd.Parameters.Add(UserIdParameter);
+
+          rdr = cmd.ExecuteReader();
+
+          while(rdr.Read())
+          {
+            int postId = rdr.GetInt32(0);
+            int userId = rdr.GetInt32(1);
+            string post = rdr.GetString(2);
+            DateTime timeStamp = rdr.GetDateTime(3);
+
+            UserPost newUserPost = new UserPost(userId, post, timeStamp, postId);
+            userposts.Add(newUserPost);
+          }
+          if (rdr != null)
+          {
+            rdr.Close();
+          }
+          if (conn != null)
+          {
+            conn.Close();
+          }
+          return userposts;
         }
 
 
