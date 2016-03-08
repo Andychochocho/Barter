@@ -1,33 +1,54 @@
 @Html.Partial("head.cshtml")
-
-
-  <body>
-    <div class="container-full">
-      <div class="hero">
-        <div class="nav">
-          <h1 class="brand">Barter</h1>
-          <ul>
-            <li class="menu-toggle">=</li>
-            <li><a href="/login">Sign in</a></li>
-            <li><a href="/newuser">Create Account</a></li>
-            <li><a href="/about">About</a></li>
-          </ul>
+<div class="container-full">
+  <div class="hero">
+    <div class="nav">
+      <a href="/"><h1 class="brand">Barter</h1></a>
+      <ul>
+        <li class="menu-toggle">=</li>
+        <li> <a href="/login">Sign in</a></li>
+        <li><a href="/newuser">Create Account</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container cta">
+    <div class="opacity">
+      <h2>A bartering network for creative services</h2>
+    </div>
+    <a href="/newuser"><button class="btn-cta">Get Started</button></a>
+  </br>
+  </div>
+  <div class="container">
+    <div class="info-section">
+      <div class="info-item">
+        <div class="circle">
+          <img src="/Content/img/clipboard.png" alt="" />
         </div>
+        <p>Sign up: Tell us what you're looking for, and what you can provide.</p>
       </div>
-      <div class="container cta">
-        <h2>A bartering network for creative services</h2>
-        <button class="btn-cta">Get Started</button>
+      <div class="info-item">
+        <div class="circle">
+          <img src="/Content/img/globe.png" alt="" />
+        </div>
+        <p>Get Matched: We'll show you possible matches in your area.</p>
       </div>
-      <div class="container">
+      <div class="info-item">
+        <div class="circle">
+          <img src="/Content/img/envelopes.png" alt="" />
+        </div>
+        <p>Message: Send a message to the provider and begin bartering!</p>
+      </div>
+    </div>
+    <div class="preview-section">
+      <div class="preview-item">
         <div class = "row">
         <div class="info-section">
-          <div class="info-item col-sm-6">
+          <div class="info-item col-sm-8">
             @if (@Model["posts"] != null)
             {
               foreach(var post in @Model["posts"])
               {
                 <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() - <a href = "/email/@post.GetUser_Id()">@post.GetUserEmail()</a></p>
-
               }
             }
             else {
@@ -36,7 +57,7 @@
               </p>
             }
           </div>
-          <div class="info-item col-sm-6">
+          <div class="info-item col-sm-4">
             @if (@Model["users"] != null)
             {
               foreach(var user in @Model["users"])
@@ -50,19 +71,15 @@
                 No users yet.
               </p>
             }
+          </div>
 
-          </div>
-          <div class="info-item">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
         </div>
-        <div class="preview-section">
-          <div class="preview-item">
-            <p>Preview stuff goes here</p>
-          </div>
-        </div>
+
       </div>
     </div>
+      </div>
     </div>
-  </body>
-</html>
+  </div>
+  <footer>&copy; 2016 Jess Guilford, Christine Tacha, Andy Cho, Timothy Durward, Simon Temple, Alex Larson<br> All rights reserved</footer>
+</div>
+</body>

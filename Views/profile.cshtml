@@ -1,4 +1,18 @@
 @Html.Partial("head.cshtml")
+<div class="container-full">
+  <div class="hero-signup">
+    <div class="nav">
+      <a href="/"><h1 class="brand">Barter</h1></a>
+      <ul>
+        <li class="menu-toggle">=</li>
+        <li> <a href="/login">Sign in</a></li>
+        <li><a href="/newuser">Create Account</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
+    <h2>Sign Up for Barter</h2>
+  </div>
+</div>
 <h1>@Model.GetEmail()</h1>
 <div class = "container">
   <div class = "row">
@@ -16,6 +30,7 @@
 @foreach (var post in @Model.GetPosts())
 {
   <li>@post.GetUserPost()</li>
+  <hr />
 
 
 }
@@ -26,10 +41,9 @@
 {
   <li>Message: @email.GetEmail()</li>
   <li>Email Sender: @email.GetSenderEmail()</li>
+<hr />
 }
 </div>
-
-<a href="/">Home</a>
 
 </div>
 </div>

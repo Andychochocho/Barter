@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="css/styles.css" rel="stylesheet" type="text/css" media="all">
+    <title>Barter - Sign Up</title>
+  </head>
+  <body>
+    <div class="container-full">
+      <div class="hero-signup">
+        <div class="nav">
+          <h1 class="brand">Barter</h1>
+          <ul>
+            <li class="menu-toggle">=</li>
+            <li>Sign in</li>
+            <li>Sign up</li>
+            <li>About</li>
+          </ul>
+        </div>
+        <h2>Sign Up for Barter</h2>
+      </div>
+    </div>
+    <div class="container">
+      <!--@Html.Partial("head.cshtml")-->
+      <h3>Tell us a little about yourself to get started</h3>
+      <form class="signup" action="/newuser" method="post">
+        <label for="email">Email</label>
+        <input type="text" name="email" value="">
+        <label for="pic">Link to profile picture</label>
+        <input type="text" name="pic" value="">
+        <label for="password">Password</label>
+        <input type="password" name="password" value="">
+        <label for="dummy-password">Repeat Password</label>
+        <input type="password" name="dummy-password" value="">
+        <label for="location">City name</label>
+        <input type="text" name="location" value="">
+        <button class="btn-submit" type="submit" name="button">Sign Up</button>
+      </form>
+    </div>
+  </body>
+</html>

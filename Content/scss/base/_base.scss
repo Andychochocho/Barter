@@ -2,12 +2,17 @@
 
 *:not(body):not(html) {
   box-sizing: border-box;
-  border: 1px solid grey;
+  // border: 1px solid grey;
 }
 
 .hero {
-  height: 400px;
+  height: 600px;
   background-color: #666;
+}
+
+.preview-section {
+  height: 300px;
+  background-color: #bbb;
 }
 
 /* End Wireframing */

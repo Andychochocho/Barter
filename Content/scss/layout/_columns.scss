@@ -1,0 +1,26 @@
+.info-section::after {
+  @include clearfix;
+}
+
+.info-item {
+  padding: 20px;
+}
+
+.circle {
+  img {
+    width: 100%;
+  }
+  @include circle(100px);
+  margin: 0 auto;
+}
+
+@media screen and (min-width: $medium-breakpoint) {
+  .info-item {
+    width: 33.333333%;
+    float: left;
+  }
+}
+
+.preview-section {
+  padding: 20px;
+}

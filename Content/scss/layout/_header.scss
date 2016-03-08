@@ -1,9 +1,18 @@
 /* Nav */
 
+.hero {
+  height: 300px;
+  @media screen and (min-width: $large-breakpoint) {
+    height: 600px;
+  }
+}
+
 .nav {
   overflow: auto;
+  padding: 10px;
   .brand {
     float: left;
+    // padding: 10px;
   }
   ul {
     float: right;
@@ -12,7 +21,8 @@
     }
   }
   li {
-    margin: 0 $m-margin;
+    // margin: 0 $m-margin;
+    padding: 7px;
   }
   li:not(.menu-toggle) {
     display: none;
@@ -29,4 +39,51 @@
 }
 
 .cta {
+  @media screen and (min-width: $large-breakpoint) {
+    h2 {
+      position: absolute;
+      top: 18%;
+      left: 7%;
+    }
+    button {
+      position: absolute;
+      top: 68%;
+      right: 10%;
+      width: 150px;
+      background-color: $hero-red;
+      color: $dark-grey;
+      font-weight: bold;
+    }
+  }
+  h2 {
+    margin: $m-margin 0;
+  }
+}
+
+/* Hero */
+.hero-signup {
+  background-image: url("../img/abstract-triangles.jpg");
+  background-size: cover;
+  height: 400px;
+  h1, .nav {
+    color: #fff;
+  }
+  h2 {
+    margin: 150px 0;
+    color: #fff;
+    font-size: 2em;
+  }
+}
+
+.hero {
+  background-image: url("../img/header02.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.opacity h2 {
+  background-color: white;
+  padding: 15px;
+  border-radius: 20px;
+  opacity: .75;
 }

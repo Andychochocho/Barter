@@ -1,0 +1,52 @@
+
+input,
+label,
+select,
+button,
+textarea
+{
+	margin:0;
+	border:0;
+	padding:0;
+	display:inline-block;
+	vertical-align:middle;
+	white-space:normal;
+	background:none;
+	line-height:1;
+
+	/* Browsers have different default form fonts */
+	font-size:13px;
+	font-family:sans-serif;
+}
+
+/* Remove the outer glow in Webkit */
+input:focus
+{
+	outline:0;
+}
+/* End form reset*/
+form {
+  width: 90%;
+  margin: 0 auto;
+  label {
+    width: 100%;
+    font-weight: bold;
+    font-size: .75em;
+    text-transform: capitalize;
+    margin: $m-margin 0;
+  }
+  input {
+    width: 100%;
+    float: right;
+    margin-bottom: $m-margin;
+    border: 2px solid lightgrey;
+  }
+  button {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding: $s-margin;
+    color: #fff;
+    @include button($dark-salmon);
+  }
+}

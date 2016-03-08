@@ -1,4 +1,18 @@
 @Html.Partial("head.cshtml")
+<div class="container-full">
+  <div class="hero-signup">
+    <div class="nav">
+      <h1 class="brand">Barter</h1>
+      <ul>
+        <li class="menu-toggle">=</li>
+        <li> <a href="/login">Sign in</a></li>
+        <li><a href="/newuser">Create Account</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
+    <h2>Sign Up for Barter</h2>
+  </div>
+</div>
 <h3>Email: </h3>
 <form action='/email/@Model["user"].GetId()' method="post">
   <label for="email">Email:</label>
