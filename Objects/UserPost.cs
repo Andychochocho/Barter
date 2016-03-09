@@ -101,6 +101,54 @@ namespace BarterNamespace
       return allUserPosts;
     }
 
+    public static List<UserPost> SearchLocationPosts(string searchString)
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr = null;
+      conn.Open();
+
+      // List<User> locationUsers = new List<User> { };
+      List<UserPost> locationUserPosts = new List<UserPost> { };
+
+      SqlCommand cmd = new SqlCommand("SELECT barter_users.* FROM barter_users WHERE user_location = @SearchLocation", conn);
+
+      SqlParameter searchLocationParameter = new SqlParameter();
+      searchLocationParameter.ParameterName = "@SearchLocation";
+      searchLocationParameter.Value = searchString;
+      cmd.Parameters.Add(searchLocationParameter);
+
+      rdr = cmd.ExecuteReader();
+
+      int foundUserId = 0;
+      string foundEmail = null;
+      string foundPicture = null;
+      string foundPassword = null;
+      string foundLocation = null;
+
+      while (rdr.Read())
+      {
+          foundUserId = rdr.GetInt32(0);
+          foundEmail = rdr.GetString(1);
+          foundPicture = rdr.GetString(2);
+          foundPassword = rdr.GetString(3);
+          foundLocation = rdr.GetString(4);
+        User newUser = new User(foundEmail, foundPicture, foundPassword, foundLocation, foundUserId);
+        locationUserPosts.AddRange(newUser.GetPosts());
+      }
+
+      if (rdr != null)
+      {
+          rdr.Close();
+      }
+      if (conn != null)
+      {
+          conn.Close();
+      }
+
+
+      return locationUserPosts;
+    }
+
     public string GetUserEmail()
     {
         SqlConnection conn = DB.Connection();
@@ -193,6 +241,53 @@ namespace BarterNamespace
         }
         string userPicture = newUser.GetPicture();
         return userPicture;
+    }
+
+    public string GetUserLocation()
+    {
+        SqlConnection conn = DB.Connection();
+        SqlDataReader rdr = null;
+        conn.Open();
+
+        // string email = " "
+
+        SqlCommand cmd = new SqlCommand("SELECT barter_users.* FROM barter_users WHERE id = @userPostId", conn);
+
+        SqlParameter UserIdParameter = new SqlParameter();
+        UserIdParameter.ParameterName = "@userPostId";
+        UserIdParameter.Value = this.GetUser_Id();
+
+        cmd.Parameters.Add(UserIdParameter);
+
+        rdr = cmd.ExecuteReader();
+
+        int postId = 0;
+        string email = null;
+        string pic = null;
+        string password = null;
+        string location = null;
+
+        while (rdr.Read())
+        {
+            postId = rdr.GetInt32(0);
+            email = rdr.GetString(1);
+            pic = rdr.GetString(2);
+            password = rdr.GetString(3);
+            location = rdr.GetString(4);
+
+        }
+        User newUser = new User(email, pic, password, location, postId);
+
+        if (rdr != null)
+        {
+            rdr.Close();
+        }
+        if (conn != null)
+        {
+            conn.Close();
+        }
+        string userLocation = newUser.GetLocation();
+        return userLocation;
     }
 
     public void Save()

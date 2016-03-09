@@ -39,6 +39,18 @@
         <p>Message: Send a message to the provider and begin bartering!</p>
       </div>
     </div>
+    <h2>Search By Location</h2>
+
+    <form action='/location' method="post">
+      <select name = "location">
+      @foreach(var user in @Model["users"])
+      {
+      <option value = @user.GetLocation()>@user.GetLocation()</option>
+      }
+    </select>
+      <button type="submit" name="button">Search For Location</button>
+    </form>
+
     <div class="preview-section">
       <!-- <div class="preview-item"> -->
         <div class = "row">
