@@ -71,7 +71,7 @@ namespace BarterNamespace
       };
       
       Post["/"] = _ =>{
-        if (User.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
+        if (User.MatchUser(Request.Form["email"], Request.Form["pass"]) == true)
         {
             return View["index.cshtml"];
         }
