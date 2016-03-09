@@ -21,6 +21,7 @@ namespace BarterNamespace
                 List<User> AllUsers = User.GetAll();
                 newDictionary.Add("posts", AllPosts);
                 newDictionary.Add("users", AllUsers);
+                //check who just logged in by validating auth & token
 
 
                 return View["index.cshtml", newDictionary];
@@ -63,9 +64,9 @@ namespace BarterNamespace
                 List<User> AllUsers = User.GetAll();
                 newDictionary.Add("posts", AllPosts);
                 newDictionary.Add("users", AllUsers);
-                return View["index.cshtml", newDictionary];
+                return View["index.cshtml", newDictionary]; 
             };
-
+            
             Get["/profile/{id}"] = parameters =>
             {
                 User foundUser = User.Find(parameters.id);
