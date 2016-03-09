@@ -66,10 +66,12 @@ namespace BarterNamespace
         {
             return _id;
         }
+
         public string GetAboutMe()
         {
             return _aboutMe;
         }
+
 
         public static bool MatchUser(string UserName, string Password)
         {
