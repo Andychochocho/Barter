@@ -70,8 +70,8 @@ namespace BarterNamespace
         return View["login.cshtml"];
       };
       
-      Post["/"] = _ =>{
-        if (User.MatchUser(Request.Form["email"], Request.Form["pass"]) == true)
+      Post["/login"] = _ =>{
+        if (User.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
         {
             return View["index.cshtml"];
         }
