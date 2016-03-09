@@ -61,17 +61,39 @@
 }
 
 /* Hero */
-.hero-signup {
+.hero-min {
   background-image: url("../img/abstract-triangles.jpg");
   background-size: cover;
-  height: 400px;
+  height: 200px;
+  margin-bottom: $m-margin;
   h1, .nav {
     color: #fff;
   }
   h2 {
-    margin: 150px 0;
+    line-height: 50px;
+    margin: 25px 0 0 0;
     color: #fff;
-    font-size: 2em;
+    font-size: 1.6em;
+  }
+  h3 {
+    color: $dark-grey;
+    background-color: #fff;
+    font-size: .8em;
+    max-width: 90%;
+    margin: $s-margin auto;
+    padding: 5px;
+    border-radius: 25px;
+  }
+  @media screen and (min-width: $medium-breakpoint) {
+    height: 300px;
+    h2 {
+      margin: 50px 0 0 0;
+      font-size: 2em;
+    }
+    h3 {
+      max-width: 40%;
+      font-size: 1.2em;
+    }
   }
 }
 

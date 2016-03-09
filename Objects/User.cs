@@ -12,6 +12,7 @@ namespace BarterNamespace
         private string _picture;
         private string _password;
         private string _location;
+        private string _aboutMe;
 
         public User(string email, string picture, string password, string location, int id = 0)
         {
@@ -20,6 +21,7 @@ namespace BarterNamespace
             _picture = picture;
             _password = password;
             _location = location;
+            _aboutMe = "About Me";
         }
 
         public override bool Equals(System.Object otherUser)
@@ -63,6 +65,10 @@ namespace BarterNamespace
         public int GetId()
         {
             return _id;
+        }
+        public string GetAboutMe()
+        {
+            return _aboutMe;
         }
 
         public static bool MatchUser(string UserName, string Password)
@@ -180,6 +186,42 @@ namespace BarterNamespace
             }
         }
 
+        public void Update(string updatedAboutMe)
+        {
+          SqlConnection conn = DB.Connection();
+          SqlDataReader rdr;
+          conn.Open();
+
+          SqlCommand cmd = new SqlCommand("UPDATE barter_users SET about_me = @updatedAboutMe OUTPUT INSERTED.about_me WHERE id = @UserProfileId;", conn);
+
+          SqlParameter updateAboutMe = new SqlParameter();
+          updateAboutMe.ParameterName = "@updatedAboutMe";
+          updateAboutMe.Value = updatedAboutMe;
+          cmd.Parameters.Add(updateAboutMe);
+
+
+          SqlParameter UserPostIdParameter = new SqlParameter();
+          UserPostIdParameter.ParameterName = "@UserProfileId";
+          UserPostIdParameter.Value = this.GetId();
+          cmd.Parameters.Add(UserPostIdParameter);
+          rdr = cmd.ExecuteReader();
+
+          while(rdr.Read())
+          {
+            this._aboutMe = rdr.GetString(0);
+          }
+
+          if (rdr != null)
+          {
+            rdr.Close();
+          }
+
+          if (conn != null)
+          {
+            conn.Close();
+          }
+        }
+
         public List<UserPost> GetPosts()
         {
             SqlConnection conn = DB.Connection();
@@ -218,50 +260,6 @@ namespace BarterNamespace
             }
             return userposts;
         }
-
-        // public List<UserPosts> SearchUserLocation(string search)
-        // {
-        //   SqlConnection conn = DB.Connection();
-        //   SqlDataReader rdr = null;
-        //   conn.Open();
-        //
-        //   List<Email> userEmails = new List<Email> { };
-        //
-        //   SqlCommand cmd = new SqlCommand("SELECT barter_users.* FROM barter_users WHERE user_location = @SearchLocation", conn);
-        //
-        //   SqlParameter searchLocationParameter = new SqlParameter();
-        //   searchLocationParameter.ParameterName = "@SearchLocation";
-        //   searchLocationParameter.Value = this.GetLocation();
-        //   cmd.Parameters.Add(searchLocationParameter);
-        //
-        //   rdr = cmd.ExecuteReader();
-        //
-        //   int foundEmailId = 0;
-        //   string foundEmail = null;
-        //   int foundUserId = 0;
-        //   DateTime foundDateTime = new DateTime(2016, 1, 1);
-        //   int foundSenderId = 1;
-        //
-        //   while (rdr.Read())
-        //   {
-        //       foundEmailId = rdr.GetInt32(0);
-        //       foundUserId = rdr.GetInt32(1);
-        //       foundEmail = rdr.GetString(2);
-        //       foundDateTime = rdr.GetDateTime(3);
-        //       foundSenderId = rdr.GetInt32(4);
-        //       Email newEmail = new Email(foundUserId, foundEmail, foundDateTime, foundSenderId, foundEmailId);
-        //       userEmails.Add(newEmail);
-        //   }
-        //   if (rdr != null)
-        //   {
-        //       rdr.Close();
-        //   }
-        //   if (conn != null)
-        //   {
-        //       conn.Close();
-        //   }
-        //   return userEmails;
-        // }
 
         public List<Email> GetEmails()
         {

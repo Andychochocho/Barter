@@ -24,8 +24,19 @@ namespace BarterNamespace
         return View["index.cshtml", newDictionary];
       };
 
-      Post["/location"] = parameters => {
+      Get["/location/{id}"] = parameters => {
+        Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+        List<UserPost> AllPosts = UserPost.GetAll();
+        User foundUser = User.Find(parameters.id);
 
+        List<User> AllUsers = User.GetAll();
+        newDictionary.Add("user", foundUser);
+        newDictionary.Add("posts", AllPosts);
+        newDictionary.Add("users", AllUsers);
+        return View["index.cshtml", newDictionary];
+      };
+
+      Post["/location"] = parameters => {
         User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> LocationPosts = UserPost.SearchLocationPosts(Request.Form["location"]);
@@ -79,6 +90,13 @@ namespace BarterNamespace
 
       Get["/profile/{id}"] = parameters => {
         User foundUser = User.Find(parameters.id);
+        return View["profile.cshtml", foundUser];
+      };
+
+      Patch["/update/about_me/{id}"] = parameters => {
+
+        User foundUser = User.Find(parameters.id);
+        foundUser.Update(Request.Form["aboutMe"]);
         return View["profile.cshtml", foundUser];
       };
 

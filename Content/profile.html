@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <!--@Html.Partial("head.cshtml")-->
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <link href="css/styles.css" rel="stylesheet" type="text/css" media="all">
+    <title>Barter</title>
+  </head>
+  <body>
+    <div class="container-full">
+      <div class="hero-min">
+        <div class="nav">
+          <h1 class="brand">Barter</h1>
+          <ul>
+            <li class="menu-toggle">=</li>
+            <li>Sign in</li>
+            <li>Sign up</li>
+            <li>About</li>
+          </ul>
+        </div>
+        <h2>@Model.GetEmail()</h2>
+        <h3>@Model.GetLocation()</h3>
+      </div>
+      <div class="container">
+        <div class="profile-pic">
+          <img src="@Model.GetPicture()" alt="">
+        </div>
+        <h3>About @Model.GetEmail()</h3>
+        <p class="about-user">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <form class="post-form" action="/postForm/@Model.GetId()" method="post">
+          <label for="post">Create a post to start</label>
+          <textarea type="text" name="post" value=""></textarea>
+          <button type="submit" name="button">Post</button>
+        </form>
+        <div class = "container user-posts">
+          <li>
+            <div class="post-useremail">user@emailprovider.com</div>
+            <div class="post-content">This is a test post showing user post formatting. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+          </li>
+
+          <li>
+            @foreach (var email in @Model.GetEmails())
+            {
+              <div class="post-useremail">@email.GetEmail()</div>
+            }
+            @foreach (var post in @Model.GetPosts())
+            {
+              <div class="post-content">@post.GetUserPost()</div>
+            }
+          </li>
+        </div>
+
+        <a href="/">Home</a>
+
+        </div>
+      </div>
+      <footer>&copy; 2016 Jess Guilford, Christine Tacha, Andy Cho, Timothy Durward, Simon Temple, Alex Larson<br> All rights reserved</footer>
+    </div>
+  </body>
+</html>

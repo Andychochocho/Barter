@@ -20,14 +20,14 @@ textarea
 }
 
 /* Remove the outer glow in Webkit */
-input:focus
+input:focus, textarea:focus
 {
 	outline:0;
 }
 /* End form reset*/
 form {
   width: 90%;
-  margin: 0 auto;
+  margin: 3% auto;
   label {
     width: 100%;
     font-weight: bold;
@@ -49,4 +49,23 @@ form {
     color: #fff;
     @include button($dark-salmon);
   }
+	@media screen and (min-width: $medium-breakpoint) {
+		width: 40%;
+		label {
+			width: 100%;
+			padding-right: $m-margin;
+			text-align: center;
+			font-size: 16px;
+		}
+		input {
+			width: 100%;
+			margin: 0 auto;
+			height: 30px;
+			border-radius: 5px;
+		}
+		button {
+			width: 40%;
+			margin-top: 60px;
+		}
+	}
 }

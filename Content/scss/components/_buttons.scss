@@ -1,7 +1,11 @@
 .btn-cta {
   margin: $s-margin 0;
   @include button($hero-red);
-  // width: 60%;
+  // transition: transform 1s;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.4);
+  }
 }
 
 .container {

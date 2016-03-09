@@ -1,4 +1,4 @@
-<div class="container-full">
+<!-- <div class="container-full">
   <div class="hero-signup">
     <div class="nav">
       <a href="/"><h1 class="brand">Barter</h1></a>
@@ -19,4 +19,36 @@
   <label>Password:</label>
   <input type="password" name="password">
   <button type="submit" name="button">Login</button>
-</form>
+</form> -->
+
+
+
+@Html.Partial("head.cshtml")
+
+  <body>
+    <div class="container-full">
+      <div class="hero">
+        <div class="nav">
+          <a href="/"><h1 class="brand">Barter</h1></a>
+          <ul>
+            <li class="menu-toggle">=</li>
+            <li><a href="/login">Sign in</a></li>
+            <li><a href="/newuser">Create Account</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container">
+        <form action="/login" method="post">
+      <label>User:</label>
+      <input type="text" name="email">
+
+      <label>Password:</label>
+      <input type="password" name="password">
+      <button type="submit" name="button">Login</button>
+    </form>
+      </div>
+      <footer>&copy; 2016 Jess Guilford, Christine Tacha, Andy Cho, Timothy Durward, Simon Temple, Alex Larson<br> All rights reserved</footer>
+    </div>
+  </body>
+</html>
