@@ -39,16 +39,31 @@
         <p>Message: Send a message to the provider and begin bartering!</p>
       </div>
     </div>
+    <h2>Search By Location</h2>
+
+    <form action='/location' method="post">
+      <select name = "location">
+      @foreach(var user in @Model["users"])
+      {
+      <option value = @user.GetLocation()>@user.GetLocation()</option>
+      }
+    </select>
+      <button type="submit" name="button">Search For Location</button>
+    </form>
+
     <div class="preview-section">
-      <div class="preview-item">
+      <!-- <div class="preview-item"> -->
         <div class = "row">
-        <div class="info-section">
-          <div class="info-item col-sm-8">
+        <div class="">
+          <div class="col-sm-6">
             @if (@Model["posts"] != null)
             {
               foreach(var post in @Model["posts"])
               {
+                <a href = "/profile/@post.GetUser_Id()"><img src = '@post.GetUserPicture()' height = "100" width = "100"></img></a>
                 <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() - <a href = "/email/@post.GetUser_Id()">@post.GetUserEmail()</a></p>
+                <a href = "/location/@post.GetUser_Id()">Click To See Location</a>
+                <hr />
               }
             }
             else {
@@ -57,26 +72,30 @@
               </p>
             }
           </div>
-          <div class="info-item col-sm-4">
-            @if (@Model["users"] != null)
-            {
-              foreach(var user in @Model["users"])
-              {
-                <img src = "@user.GetPicture()" height = "100" width = "100"></img>
-                <a href = "/profile/@user.GetId()"><p>@user.GetEmail()</p></a>
-              }
-            }
-            else {
-              <p>
-                No users yet.
-              </p>
-            }
-          </div>
 
         </div>
 
+          @{
+          if(@Model["user"] != null)
+          {
+            <!-- <h1>@Model["user"].GetEmail()</h1> -->
+        <div class="map col-sm-4 map-class">
+          <iframe
+          width="450"
+          height="350"
+          frameborder="0" style="border:0"
+          src='https://www.google.com/maps/embed/v1/place?key=AIzaSyBPK7FnNiDe46HvQEKl1UmmSCjkIPK3tuw
+            &q=@Model["user"].GetLocation()'
+          allowfullscreen>
+        </iframe>
+        </div>
+        }
+      }
+
+
+
       </div>
-    </div>
+    <!-- </div> -->
       </div>
     </div>
   </div>

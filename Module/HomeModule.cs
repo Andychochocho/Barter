@@ -12,20 +12,31 @@ namespace BarterNamespace
     {
         public HomeModule()
         {
-
             Get["/"] = _ =>
             {
                 Dictionary<string, object> newDictionary = new Dictionary<string, object>();
-
                 List<UserPost> AllPosts = UserPost.GetAll();
                 List<User> AllUsers = User.GetAll();
+                User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+                newDictionary.Add("user", foundUser);
                 newDictionary.Add("posts", AllPosts);
                 newDictionary.Add("users", AllUsers);
-                //check who just logged in by validating auth & token
-
-
                 return View["index.cshtml", newDictionary];
             };
+
+            Post["/location"] = parameters =>
+            {
+
+                User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+                Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+                List<UserPost> LocationPosts = UserPost.SearchLocationPosts(Request.Form["location"]);
+                List<User> AllUsers = User.GetAll();
+                newDictionary.Add("user", foundUser);
+                newDictionary.Add("posts", LocationPosts);
+                newDictionary.Add("users", AllUsers);
+                return View["index.cshtml", newDictionary];
+            };
+
 
             Get["/about"] = _ =>
             {
@@ -44,6 +55,8 @@ namespace BarterNamespace
                 List<User> AllUsers = User.GetAll();
 
 
+                User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+                newDictionary.Add("user", foundUser);
                 newDictionary.Add("posts", AllPosts);
                 newDictionary.Add("users", AllUsers);
                 return View["index.cshtml", newDictionary];
@@ -62,11 +75,13 @@ namespace BarterNamespace
                 Dictionary<string, object> newDictionary = new Dictionary<string, object>();
                 List<UserPost> AllPosts = UserPost.GetAll();
                 List<User> AllUsers = User.GetAll();
+                User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+                newDictionary.Add("user", foundUser);
                 newDictionary.Add("posts", AllPosts);
                 newDictionary.Add("users", AllUsers);
-                return View["index.cshtml", newDictionary]; 
+                return View["index.cshtml", newDictionary];
             };
-            
+
             Get["/profile/{id}"] = parameters =>
             {
                 User foundUser = User.Find(parameters.id);
@@ -83,8 +98,10 @@ namespace BarterNamespace
                 if (User.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
                 {
                     Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+                    User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
                     List<UserPost> AllPosts = UserPost.GetAll();
                     List<User> AllUsers = User.GetAll();
+                    newDictionary.Add("user", foundUser);
                     newDictionary.Add("posts", AllPosts);
                     newDictionary.Add("users", AllUsers);
                     return View["index.cshtml", newDictionary];
@@ -117,11 +134,12 @@ namespace BarterNamespace
                 Dictionary<string, object> newDictionary = new Dictionary<string, object>();
                 List<UserPost> AllPosts = UserPost.GetAll();
                 List<User> AllUsers = User.GetAll();
+
+                newDictionary.Add("user", foundUser);
                 newDictionary.Add("posts", AllPosts);
                 newDictionary.Add("users", AllUsers);
                 return View["index.cshtml", newDictionary];
             };
-
 
         }
     }
