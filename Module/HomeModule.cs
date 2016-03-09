@@ -130,19 +130,6 @@ namespace BarterNamespace
       newDictionary.Add("users", AllUsers);
       return View["index.cshtml", newDictionary];
     };
-      // Post["/login"] = _ => {
-      //
-      //    LogOnModel logOnModel = new LogOnModel();
-      //
-      //    var existingCookie = Request.Cookies["userName"];
-      //    if (existingCookie != null)
-      //    {
-      //       logOnModel.UserName = existingCookie.Value;
-      //    }
-      //   return View["index.cshtml"];
-      // };
-
-
 
     }
   }
