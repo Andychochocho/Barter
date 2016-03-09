@@ -69,6 +69,18 @@ namespace BarterNamespace
       Get["/login"] = _ => {
         return View["login.cshtml"];
       };
+      
+      Post["/"] = _ =>{
+        if (User.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
+        {
+            return View["index.cshtml"];
+        }
+        else {
+            //write to view "Login failed, try again"
+            return View["login.cshtml"];
+        }
+        
+      };
 
       Get["/email/{id}"] = parameters => {
         User foundUser = User.Find(parameters.id);
