@@ -16,14 +16,27 @@ namespace BarterNamespace
       Get["/"] = _ => {
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
 
+
         List<UserPost> AllPosts = UserPost.GetAll();
         List<User> AllUsers = User.GetAll();
+        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+        newDictionary.Add("user", foundUser);
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
-
-
         return View["index.cshtml", newDictionary];
       };
+
+      Get["/location/{id}"] = parameters => {
+        User foundUser = User.Find(parameters.id);
+        Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+        List<UserPost> AllPosts = UserPost.GetAll();
+        List<User> AllUsers = User.GetAll();
+        newDictionary.Add("user", foundUser);
+        newDictionary.Add("posts", AllPosts);
+        newDictionary.Add("users", AllUsers);
+        return View["index.cshtml", newDictionary];
+      };
+
 
       Get["/about"] = _ => {
         return View["about.cshtml"];
@@ -40,6 +53,8 @@ namespace BarterNamespace
         List<User> AllUsers = User.GetAll();
 
 
+        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+        newDictionary.Add("user", foundUser);
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
         return View["index.cshtml", newDictionary];
@@ -56,6 +71,8 @@ namespace BarterNamespace
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> AllPosts = UserPost.GetAll();
         List<User> AllUsers = User.GetAll();
+        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+        newDictionary.Add("user", foundUser);
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
         return View["index.cshtml", newDictionary];
@@ -69,17 +86,24 @@ namespace BarterNamespace
       Get["/login"] = _ => {
         return View["login.cshtml"];
       };
-      
+
       Post["/login"] = _ =>{
         if (User.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
         {
-            return View["index.cshtml"];
+          Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+          User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+          List<UserPost> AllPosts = UserPost.GetAll();
+          List<User> AllUsers = User.GetAll();
+          newDictionary.Add("user", foundUser);
+          newDictionary.Add("posts", AllPosts);
+          newDictionary.Add("users", AllUsers);
+          return View["index.cshtml", newDictionary];
         }
         else {
             //write to view "Login failed, try again"
             return View["login.cshtml"];
         }
-        
+
       };
 
       Get["/email/{id}"] = parameters => {
@@ -100,6 +124,8 @@ namespace BarterNamespace
       Dictionary<string, object> newDictionary = new Dictionary<string, object>();
       List<UserPost> AllPosts = UserPost.GetAll();
       List<User> AllUsers = User.GetAll();
+
+      newDictionary.Add("user", foundUser);
       newDictionary.Add("posts", AllPosts);
       newDictionary.Add("users", AllUsers);
       return View["index.cshtml", newDictionary];
