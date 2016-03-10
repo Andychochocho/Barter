@@ -186,6 +186,8 @@ namespace BarterNamespace
             string pic = null;
             string password = null;
             string location = null;
+            string about = null;
+
 
             while (rdr.Read())
             {
@@ -194,9 +196,11 @@ namespace BarterNamespace
                 pic = rdr.GetString(2);
                 password = rdr.GetString(3);
                 location = rdr.GetString(4);
+                about = rdr.GetString(5);
+
 
             }
-            User newUser = new User(email, pic, password, location, postId);
+            User newUser = new User(email, pic, password, location, about, postId);
 
             if (rdr != null)
             {

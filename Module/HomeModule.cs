@@ -17,7 +17,7 @@ namespace BarterNamespace
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> AllPosts = UserPost.GetAll();
         List<User> AllUsers = User.GetAll();
-        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland", "im a cool cat");
         newDictionary.Add("user", foundUser);
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
@@ -28,7 +28,6 @@ namespace BarterNamespace
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> AllPosts = UserPost.GetAll();
         User foundUser = User.Find(parameters.id);
-
         List<User> AllUsers = User.GetAll();
         newDictionary.Add("user", foundUser);
         newDictionary.Add("posts", AllPosts);
@@ -37,7 +36,7 @@ namespace BarterNamespace
       };
 
       Post["/location"] = parameters => {
-        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland", "im a cool cat");
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> LocationPosts = UserPost.SearchLocationPosts(Request.Form["location"]);
         List<User> AllUsers = User.GetAll();
@@ -63,7 +62,7 @@ namespace BarterNamespace
         List<User> AllUsers = User.GetAll();
 
 
-        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland", "im a cool cat");
         newDictionary.Add("user", foundUser);
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
@@ -76,12 +75,12 @@ namespace BarterNamespace
       };
 
       Post["/newuser"] = _ => {
-        User newUser = new User(Request.Form["email"], Request.Form["pic"], Request.Form["password"], Request.Form["location"]);
+        User newUser = new User(Request.Form["email"], Request.Form["pic"], Request.Form["password"], Request.Form["location"], "about me");
         newUser.Save();
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> AllPosts = UserPost.GetAll();
         List<User> AllUsers = User.GetAll();
-        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+        User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland", "im a cool cat");
         newDictionary.Add("user", foundUser);
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
@@ -90,13 +89,14 @@ namespace BarterNamespace
 
       Get["/profile/{id}"] = parameters => {
         User foundUser = User.Find(parameters.id);
+        Console.WriteLine(foundUser.GetAboutMe());
         return View["profile.cshtml", foundUser];
       };
 
       Patch["/update/about_me/{id}"] = parameters => {
-
         User foundUser = User.Find(parameters.id);
         foundUser.Update(Request.Form["aboutMe"]);
+        Console.WriteLine(foundUser.GetAboutMe());
         return View["profile.cshtml", foundUser];
       };
 
@@ -108,7 +108,7 @@ namespace BarterNamespace
         if (User.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
         {
           Dictionary<string, object> newDictionary = new Dictionary<string, object>();
-          User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland");
+          User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland", "im a cool cat");
           List<UserPost> AllPosts = UserPost.GetAll();
           List<User> AllUsers = User.GetAll();
           newDictionary.Add("user", foundUser);

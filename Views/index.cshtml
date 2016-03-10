@@ -8,6 +8,25 @@
         <li> <a href="/login">Sign in</a></li>
         <li><a href="/newuser">Create Account</a></li>
         <li><a href="/about">About</a></li>
+        <li>
+          <!-- <form action='/profile' method="post">
+          <select name = "profile">
+            @foreach(var user in @Model["users"])
+            {
+              <option><a href = "/profile/@user.GetId()">@user.GetEmail()</a></option>
+            }
+          </select>
+          <button type="submit" name="button">Click</button>
+        </form> -->
+
+        @foreach(var user in @Model["users"])
+        {
+          <a href = "/profile/@user.GetId()"><img src = '@user.GetPicture()' height = "100" width = "100"></img></a>
+          <p><a href = "/email/@user.GetId()">@user.GetEmail()</a></p>
+
+          <hr />
+        }
+      </li>
       </ul>
     </div>
   </div>
@@ -48,7 +67,7 @@
       <option value = @user.GetLocation()>@user.GetLocation()</option>
       }
     </select>
-      <button type="submit" name="button">Search For Location</button>
+      <button type="submit" name="button">Sort Posts By Location</button>
     </form>
 
     <div class="preview-section">
@@ -79,7 +98,7 @@
           if(@Model["user"] != null)
           {
             <!-- <h1>@Model["user"].GetEmail()</h1> -->
-        <div class="map col-sm-4 map-class">
+        <div id ="Map" class="map col-sm-4 map-class">
           <iframe
           width="450"
           height="350"

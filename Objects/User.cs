@@ -14,14 +14,14 @@ namespace BarterNamespace
         private string _location;
         private string _aboutMe;
 
-        public User(string email, string picture, string password, string location, int id = 0)
+        public User(string email, string picture, string password, string location, string AboutMe, int id = 0)
         {
             _id = id;
             _email = email;
             _picture = picture;
             _password = password;
             _location = location;
-            _aboutMe = "About Me";
+            _aboutMe = AboutMe;
         }
 
         public override bool Equals(System.Object otherUser)
@@ -38,7 +38,9 @@ namespace BarterNamespace
                 bool pictureEquality = this.GetPicture() == newUser.GetPicture();
                 bool passwordEquality = this.GetPassword() == newUser.GetPassword();
                 bool locationEquality = this.GetLocation() == newUser.GetLocation();
-                return (idEquality && emailEquality && pictureEquality && passwordEquality && locationEquality);
+                bool aboutMeEquality = this.GetAboutMe() == newUser.GetAboutMe();
+
+                return (idEquality && emailEquality && pictureEquality && passwordEquality && locationEquality && aboutMeEquality);
             }
         }
 
@@ -113,7 +115,7 @@ namespace BarterNamespace
         // {
         //    var conn = DB.Connection();
         //    conn.Open();
-           
+
         //    foreach(var user  in users)
         //    {
         //        if(users.MatchedUser == user)
@@ -126,7 +128,7 @@ namespace BarterNamespace
         //        }
         //    }
         // }
-        
+
         public static List<User> GetAll()
         {
             List<User> allUsers = new List<User> { };
@@ -145,8 +147,11 @@ namespace BarterNamespace
                 string picture = rdr.GetString(2);
                 string password = rdr.GetString(3);
                 string location = rdr.GetString(4);
+                string aboutMe = rdr.GetString(5);
 
-                User newUser = new User(email, picture, password, location, Id);
+
+
+                User newUser = new User(email, picture, password, location, aboutMe, Id);
                 allUsers.Add(newUser);
             }
 
@@ -167,7 +172,7 @@ namespace BarterNamespace
             SqlDataReader rdr;
             conn.Open();
 
-            SqlCommand cmd = new SqlCommand("INSERT INTO barter_users(email, pic, user_password, user_location) OUTPUT INSERTED.id VALUES(@Email, @Picture, @Password ,@Location);", conn);
+            SqlCommand cmd = new SqlCommand("INSERT INTO barter_users(email, pic, user_password, user_location, about_me) OUTPUT INSERTED.id VALUES(@Email, @Picture, @Password ,@Location, @about);", conn);
 
             SqlParameter emailNameParameter = new SqlParameter();
             emailNameParameter.ParameterName = "@Email";
@@ -189,6 +194,11 @@ namespace BarterNamespace
             user_locationNameParameter.Value = this.GetLocation();
             cmd.Parameters.Add(user_locationNameParameter);
 
+            SqlParameter userAbout = new SqlParameter();
+            userAbout.ParameterName = "@about";
+            userAbout.Value = "About Me!";
+            cmd.Parameters.Add(userAbout);
+
             rdr = cmd.ExecuteReader();
 
             while (rdr.Read())
@@ -205,7 +215,7 @@ namespace BarterNamespace
             }
         }
 
-        public void Update(string updatedAboutMe)
+        public string Update(string updatedAboutMe)
         {
           SqlConnection conn = DB.Connection();
           SqlDataReader rdr;
@@ -239,6 +249,7 @@ namespace BarterNamespace
           {
             conn.Close();
           }
+          return updatedAboutMe;
         }
 
         public List<UserPost> GetPosts()
@@ -344,6 +355,8 @@ namespace BarterNamespace
             string foundPicture = null;
             string foundPassword = null;
             string foundLocation = null;
+            string foundAbout = null;
+
 
             while (rdr.Read())
             {
@@ -352,9 +365,11 @@ namespace BarterNamespace
                 foundPicture = rdr.GetString(2);
                 foundPassword = rdr.GetString(3);
                 foundLocation = rdr.GetString(4);
+                foundAbout = rdr.GetString(5);
+
 
             }
-            User newUser = new User(foundEmail, foundPicture, foundPassword, foundLocation, foundUserId);
+            User newUser = new User(foundEmail, foundPicture, foundPassword, foundLocation, foundAbout, foundUserId);
 
             if (rdr != null)
             {
