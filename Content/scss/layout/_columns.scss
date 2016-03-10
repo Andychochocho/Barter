@@ -21,6 +21,25 @@
   }
 }
 
-.preview-section {
+.post-feed {
   padding: 20px;
+  background-color: lightgrey;
+  border-radius: 10px;
+  .btn-message {
+    margin: 0 auto;
+  }
+  &::after {
+    @include clearfix;
+  }
+  @media screen and (min-width: $large-breakpoint) {
+    .posts-column {
+      width: 48%;
+      float: left;
+    }
+
+    .map-column {
+      width: 48%;
+      float: right;
+    }
+  }
 }

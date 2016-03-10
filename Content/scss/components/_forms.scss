@@ -69,3 +69,60 @@ form {
 		}
 	}
 }
+
+/* Modals */
+.message-modal:not(.modal-close) {
+	font-family: $black-lato;
+}
+
+.message-modal {
+	display: none;
+	background-color: #fff;
+	border: 1px solid grey;
+	position: fixed;
+	top: 10%;
+	left: 5%;
+	right: 5%;
+	z-index: 2;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+	// font-family: $black-lato;
+	form {
+		width: 90%;
+	}
+	textarea {
+		height: 200px;
+		border: 2px solid lightgrey;
+		width: 100%;
+		margin: $m-margin 0;
+	}
+	button {
+		width: 60%;
+		margin: 20px auto 0 auto;
+	}
+	select {
+		border: 1px solid $dark-grey;
+		width: 100%;
+	}
+	.modal-close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
+	@media screen and (min-width: $medium-breakpoint) {
+		left: 20%;
+		right: 20%;
+	}
+}
+
+.modal-transparency {
+	display: none;
+	background-color: rgba(0, 0, 0, 0.3);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+}

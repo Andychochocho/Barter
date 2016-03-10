@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
 using System.Data;
+using System.Linq;
 
 namespace BarterNamespace
 {
@@ -323,6 +324,7 @@ namespace BarterNamespace
                 foundSenderId = rdr.GetInt32(4);
                 Email newEmail = new Email(foundUserId, foundEmail, foundDateTime, foundSenderId, foundEmailId);
                 userEmails.Add(newEmail);
+
             }
             if (rdr != null)
             {
@@ -332,6 +334,7 @@ namespace BarterNamespace
             {
                 conn.Close();
             }
+            // List<Email> SortedEmail = userEmails.OrderByDescending(o=>o.userEmails.GetDateTime()).ToList();
             return userEmails;
         }
 

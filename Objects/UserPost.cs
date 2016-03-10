@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
+using System.Linq;
+
 
 namespace BarterNamespace
 {
@@ -71,6 +73,7 @@ namespace BarterNamespace
     {
       List<UserPost> allUserPosts = new List<UserPost>{};
 
+
       SqlConnection conn = DB.Connection();
       SqlDataReader rdr = null;
       conn.Open();
@@ -97,8 +100,8 @@ namespace BarterNamespace
       {
         conn.Close();
       }
-
-      return allUserPosts;
+      List<UserPost> SortedList = allUserPosts.OrderByDescending(o=>o._date_time).ToList();
+      return  SortedList;
     }
 
     public static List<UserPost> SearchLocationPosts(string searchString)

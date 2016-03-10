@@ -1,11 +1,96 @@
 /* Nav */
 
+@keyframes opacity01 {
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity02 {
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity03 {
+  75% {
+    opacity: 1;
+  }
+}
+
+.header-bg {
+  //This element serves as a background when animation is not supported
+  object-fit: cover;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  height: 600px;
+  z-index: -1;
+}
+
+.header01 {
+  object-fit: cover;
+  width: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  -webkit-animation: opacity01 6s ease-in-out infinite;
+  -moz-animation: opacity01 6s  ease-in-out infinite;
+  animation: opacity01 6s ease-in-out infinite;
+  -webkit-animation-delay: -1s; /* Chrome, Safari, Opera */
+  animation-delay: -1s;
+}
+
+.header02 {
+  opacity: 0;
+  object-fit: cover;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  -webkit-animation: opacity02 10s ease-in-out infinite;
+  -moz-animation: opacity02 10s ease-in-out infinite;
+  animation: opacity02 10s ease-in-out infinite;
+  -webkit-animation-delay: -5s; /* Chrome, Safari, Opera */
+  animation-delay: -5s;
+}
+
+.header03 {
+  opacity: 0;
+  object-fit: cover;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  -webkit-animation: opacity02 10s ease-in-out infinite;
+  -moz-animation: opacity02 10s ease-in-out infinite;
+  animation: opacity02 10s ease-in-out infinite;
+  -webkit-animation-delay: -9s; /* Chrome, Safari, Opera */
+  animation-delay: -9s;
+}
+
 .hero {
+  background: #fff;
+  opacity:0.99;
   height: 300px;
+  overflow: hidden;
   @media screen and (min-width: $large-breakpoint) {
     height: 600px;
   }
 }
+//
+// .hero {
+//   background-image: url("img/header01.jpg");
+//   background-size: cover;
+//   background-position: center;
+//   opacity:0.99;
+//   height: 300px;
+//   overflow: hidden;
+//   @media screen and (min-width: $large-breakpoint) {
+//     height: 600px;
+//   }
+// }
 
 .nav {
   overflow: auto;
@@ -38,16 +123,22 @@
   }
 }
 
+.nav-main {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+
 .cta {
   @media screen and (min-width: $large-breakpoint) {
     h2 {
       position: absolute;
-      top: 18%;
+      top: 250px;
       left: 7%;
     }
     button {
       position: absolute;
-      top: 68%;
+      top: 450px; //this button's location must be fixed so that it behaves consistently with regards to the header//*
       right: 10%;
       width: 150px;
       background-color: $hero-red;
@@ -83,6 +174,7 @@
     margin: $s-margin auto;
     padding: 5px;
     border-radius: 25px;
+    text-align: center;
   }
   @media screen and (min-width: $medium-breakpoint) {
     height: 300px;
@@ -95,12 +187,6 @@
       font-size: 1.2em;
     }
   }
-}
-
-.hero {
-  background-image: url("../img/header02.jpg");
-  background-size: cover;
-  background-position: center;
 }
 
 .opacity h2 {

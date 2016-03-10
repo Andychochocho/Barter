@@ -1,41 +1,26 @@
 @Html.Partial("head.cshtml")
+<div class="modal-transparency"> </div>
 <div class="container-full">
   <div class="hero">
-    <div class="nav">
+    <div class="nav nav-main">
       <a href="/"><h1 class="brand">Barter</h1></a>
       <ul>
-        <li class="menu-toggle">=</li>
-        <li> <a href="/login">Sign in</a></li>
+        <li class="menu-toggle"><i class="fa fa-bars"></i></li>
+        <li><a href="/login">Sign in</a></li>
         <li><a href="/newuser">Create Account</a></li>
         <li><a href="/about">About</a></li>
-        <li>
-          <!-- <form action='/profile' method="post">
-          <select name = "profile">
-            @foreach(var user in @Model["users"])
-            {
-              <option><a href = "/profile/@user.GetId()">@user.GetEmail()</a></option>
-            }
-          </select>
-          <button type="submit" name="button">Click</button>
-        </form> -->
-
-        @foreach(var user in @Model["users"])
-        {
-          <a href = "/profile/@user.GetId()"><img src = '@user.GetPicture()' height = "100" width = "100"></img></a>
-          <p><a href = "/email/@user.GetId()">@user.GetEmail()</a></p>
-
-          <hr />
-        }
-      </li>
       </ul>
     </div>
+    <img src="/Content/img/header01.jpg" class="header01">
+    <img src="/Content/img/header02.jpg" class="header02">
+    <img src="/Content/img/header03.jpg" class="header03">
+    <img src="/Content/img/header01.jpg" class="header-bg">
   </div>
   <div class="container cta">
     <div class="opacity">
       <h2>A bartering network for creative services</h2>
     </div>
     <a href="/newuser"><button class="btn-cta">Get Started</button></a>
-  </br>
   </div>
   <div class="container">
     <div class="info-section">
@@ -70,19 +55,21 @@
       <button type="submit" name="button">Sort Posts By Location</button>
     </form>
 
-    <div class="preview-section">
-      <div class="preview-item">
-        <div class = "row">
-        <div class="">
-          <div class="col-sm-6">
+      <div class="post-feed">
+      <div class="posts-column">
+        <p>Posts go in this column</p>
+        <div class = "container user-posts">
             @if (@Model["posts"] != null)
             {
               foreach(var post in @Model["posts"])
               {
-                <a href = "/profile/@post.GetUser_Id()"><img src = '@post.GetUserPicture()' height = "100" width = "100"></img></a>
-                <p>@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() - <a href = "/email/@post.GetUser_Id()">@post.GetUserEmail()</a></p>
-                <a href = "/location/@post.GetUser_Id()">Click To See Location</a>
-                <hr />
+                <li>
+                  <div class="post-useremail">@post.GetUserEmail()</div>
+                  <a href = "/profile/@post.GetUser_Id()"><img src = '@post.GetUserPicture()' height = "100" width = "100"></img></a>
+                  <div class="post-content">@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id() -
+                  <a href = "/location/@post.GetUser_Id()">Click To See Location</a></div>
+                  <button class="btn-message">Message</button>
+                </li>
               }
             }
             else {
@@ -91,14 +78,11 @@
               </p>
             }
           </div>
-
         </div>
 
-          @{
-          if(@Model["user"] != null)
-          {
+
             <!-- <h1>@Model["user"].GetEmail()</h1> -->
-        <div id ="Map" class="map col-sm-4 map-class">
+        <div id ="Map" class="map-column">
           <iframe
           width="450"
           height="350"
@@ -107,17 +91,39 @@
             &q=@Model["user"].GetLocation()'
           allowfullscreen>
         </iframe>
-        </div>
+
+        @foreach(var user in @Model["users"])
+        {
+          <a href = "/profile/@user.GetId()"><img src = '@user.GetPicture()' height = "100" width = "100"></img></a>
+          <p><a href = "/email/@user.GetId()">@user.GetEmail()</a></p>
+          <hr />
+          <div class="message-modal">
+            <div class="modal-close"><i class="fa fa-times"></i></div>
+            <h3>Message User</h3>
+            <form class="modal-form" action='/email/@user.GetId()' method="post">
+              <p>Send a message to a user. Just write your response below, select the user from the dropdown, and click "send message"</p>
+              <label class="msg" for="email">Write Your Message</label>
+              <textarea type="text" name="email"></textarea>
+              <select name = "sender">
+              @foreach(var emailUser in @Model["users"])
+              {
+              <option value = @user.GetId()>@emailUser.GetEmail()</option>
+              }
+              </select>
+              <button class="modal-btn" type="submit" name="button">Send Message</button>
+            </form>
+          </div>
         }
-      }
+        </div>
 
-
-
-      </div>
+      
+    </div>
     </div>
       </div>
     </div>
   </div>
+
   <footer>&copy; 2016 Jess Guilford, Christine Tacha, Andy Cho, Timothy Durward, Simon Temple, Alex Larson<br> All rights reserved</footer>
 </div>
 </body>
+</html>

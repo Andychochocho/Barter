@@ -1,67 +1,52 @@
 @Html.Partial("head.cshtml")
+<body>
 <div class="container-full">
-   <div class="hero-min">
-      <div class="nav">
-         <a href="/">
-            <h1 class="brand">Barter</h1>
-         </a>
-         <ul>
-            <li class="menu-toggle">=</li>
-            <li> <a href="/login">Sign in</a></li>
-            <li><a href="/newuser">Create Account</a></li>
-            <li><a href="/about">About</a></li>
-         </ul>
-      </div>
-      <h2>Profile Page</h2>
-
-
-<h1>@Model.GetEmail()</h1>
-<h3>@Model.GetLocation()</h3>
+  <div class="hero-min">
+    <div class="nav">
+      <a href="/"><h1 class="brand">Barter</h1></a>
+      <ul>
+        <li class="menu-toggle">=</li>
+        <li> <a href="/login">Sign in</a></li>
+        <li><a href="/newuser">Create Account</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
     </div>
-  </div>
-<div class="container">
-   <div class="profile-pic">
+    <h2>@Model.GetEmail()</h2>
+    <h3>Lives In: @Model.GetLocation()</h3>
+    </div>
+    <div class="container">
+    <div class="profile-pic">
       <h3><img src="@Model.GetPicture()" height = "300" width = "300" alt=""></h3>
-   </div>
-   <h3>About @Model.GetEmail()</h3>
-   <form action = "/update/about_me/@Model.GetId()" method = "post">
-     <input type="hidden" name="_method" value="PATCH">
-    <input name = "aboutMe"></input>
-    <button>Update Profile Info</button>
+    </div>
+    <h3>About @Model.GetEmail()</h3>
+    <form action = "/update/about_me/@Model.GetId()" method = "post">
+      <input type="hidden" name="_method" value="PATCH">
+      <input name = "aboutMe"></input>
+      <button>Update Profile Info</button>
     </form>
 
     <form class="post-form">
       <h3>About Me</h3>
       <hr />
-   <p class="about-user">@Model.GetAboutMe()</p>
- </form>
+      <p class="about-user">@Model.GetAboutMe()</p>
+    </form>
 
-   <form class="post-form" action="/postForm/@Model.GetId()" method="post">
-     <label for="post">Create a post to start</label>
+    <form class="post-form" action="/postForm/@Model.GetId()" method="post">
+      <label for="post">Create a post to start</label>
       <textarea type="text" name="post" value=""></textarea>
       <button type="submit" name="button">Click here</button>
-   </form>
-
-   <!-- <div class = "container user-posts">
-     <div class="post-useremail">Your Posts</div>
-
-      <div class="post-content">
-      @foreach (var post in @Model.GetPosts())
+    </form>
+    <div class = "container user-posts">
+      <div class="post-useremail">Your Emails</div>
+      @foreach (var email in @Model.GetEmails())
       {
-      <p>@post.GetUserPost()</p>
+      <li>Message: @email.GetEmail()
+        <hr />
+      Email Sender: @email.GetSenderEmail()</li>
       <hr />
       }
-   </div>
-   </div> -->
-   <div class = "container user-posts">
-
-   <div class="post-useremail">Your Emails</div>
-   @foreach (var email in @Model.GetEmails())
-   {
-   <li>Message: @email.GetEmail()
-     <hr />
-   Email Sender: @email.GetSenderEmail()</li>
-   <hr />
-   }
-
+    </div>
+  </div>
 </div>
+</body>
+</html>

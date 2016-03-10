@@ -48,23 +48,3 @@
     }
   }
 }
-
-.user-posts {
-  width: 100%;
-  li {
-    border: 3px solid $dark-grey;
-    border-radius: 5px;
-    margin: $m-margin 0;
-    .post-useremail {
-      background-color: $dark-grey;
-      color: #fff;
-      padding: 5px 0;
-    }
-    .post-content {
-      padding: 15px;
-    }
-  }
-  @media screen and (min-width: $medium-breakpoint) {
-    width: 70%;
-  }
-}
