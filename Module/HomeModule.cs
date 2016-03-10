@@ -53,7 +53,7 @@ namespace BarterNamespace
 
       Post["/postForm/{id}"] = parameters => {
         DateTime currentTime = DateTime.Now;
-        UserPost userId = UserPost.Find(parameters.id);
+        User userId = User.Find(parameters.id);
         UserPost newPost = new UserPost(userId.GetId(), Request.Form["post"], currentTime);
         newPost.Save();
 
