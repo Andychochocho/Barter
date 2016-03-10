@@ -73,6 +73,7 @@ namespace BarterNamespace
       Post["/login"] = _ =>{
         if (User.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
         {
+            Console.WriteLine("THIS WILL NOT WORK");
             return View["index.cshtml"];
         }
         else {
