@@ -107,9 +107,26 @@ namespace BarterNamespace
                 Console.WriteLine(false);
                 return false;
             }
-
-
         }
+        
+        public static void DetermineUser()
+        {
+           var conn = DB.Connection();
+           conn.Open();
+           
+           foreach(var user  in users)
+           {
+               if(users.MatchedUser == user)
+               {
+                   return userinfo;
+               }
+               else
+               {
+                   return 401;
+               }
+           }
+        }
+        
         public static List<User> GetAll()
         {
             List<User> allUsers = new List<User> { };
