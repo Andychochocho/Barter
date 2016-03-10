@@ -219,6 +219,50 @@ namespace BarterNamespace
             return userposts;
         }
 
+        // public List<UserPosts> SearchUserLocation(string search)
+        // {
+        //   SqlConnection conn = DB.Connection();
+        //   SqlDataReader rdr = null;
+        //   conn.Open();
+        //
+        //   List<Email> userEmails = new List<Email> { };
+        //
+        //   SqlCommand cmd = new SqlCommand("SELECT barter_users.* FROM barter_users WHERE user_location = @SearchLocation", conn);
+        //
+        //   SqlParameter searchLocationParameter = new SqlParameter();
+        //   searchLocationParameter.ParameterName = "@SearchLocation";
+        //   searchLocationParameter.Value = this.GetLocation();
+        //   cmd.Parameters.Add(searchLocationParameter);
+        //
+        //   rdr = cmd.ExecuteReader();
+        //
+        //   int foundEmailId = 0;
+        //   string foundEmail = null;
+        //   int foundUserId = 0;
+        //   DateTime foundDateTime = new DateTime(2016, 1, 1);
+        //   int foundSenderId = 1;
+        //
+        //   while (rdr.Read())
+        //   {
+        //       foundEmailId = rdr.GetInt32(0);
+        //       foundUserId = rdr.GetInt32(1);
+        //       foundEmail = rdr.GetString(2);
+        //       foundDateTime = rdr.GetDateTime(3);
+        //       foundSenderId = rdr.GetInt32(4);
+        //       Email newEmail = new Email(foundUserId, foundEmail, foundDateTime, foundSenderId, foundEmailId);
+        //       userEmails.Add(newEmail);
+        //   }
+        //   if (rdr != null)
+        //   {
+        //       rdr.Close();
+        //   }
+        //   if (conn != null)
+        //   {
+        //       conn.Close();
+        //   }
+        //   return userEmails;
+        // }
+
         public List<Email> GetEmails()
         {
             SqlConnection conn = DB.Connection();
