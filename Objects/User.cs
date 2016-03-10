@@ -108,24 +108,24 @@ namespace BarterNamespace
                 return false;
             }
         }
-        
-        public static void DetermineUser()
-        {
-           var conn = DB.Connection();
-           conn.Open();
+        // TIM THIS IS THE FOREACH LOOP
+        // public static void DetermineUser()
+        // {
+        //    var conn = DB.Connection();
+        //    conn.Open();
            
-           foreach(var user  in users)
-           {
-               if(users.MatchedUser == user)
-               {
-                   return userinfo;
-               }
-               else
-               {
-                   return 401;
-               }
-           }
-        }
+        //    foreach(var user  in users)
+        //    {
+        //        if(users.MatchedUser == user)
+        //        {
+        //            return userinfo;
+        //        }
+        //        else
+        //        {
+        //            return 401;
+        //        }
+        //    }
+        // }
         
         public static List<User> GetAll()
         {
