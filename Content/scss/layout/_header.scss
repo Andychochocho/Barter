@@ -27,13 +27,18 @@
   width: 100%;
   position: absolute;
   top: 0;
-  height: 600px;
+  height: 300px;
   z-index: -1;
+  @media screen and (min-width: $large-breakpoint) {
+    height: 600px;
+  }
 }
 
 .header01 {
   object-fit: cover;
   width: 100%;
+  max-height: 600px;
+  min-height: 300px;
   opacity: 0;
   position: absolute;
   top: 0;
@@ -42,12 +47,17 @@
   animation: opacity01 6s ease-in-out infinite;
   -webkit-animation-delay: -1s; /* Chrome, Safari, Opera */
   animation-delay: -1s;
+  @media screen and (min-width: $large-breakpoint) {
+    height: 600px;
+  }
 }
 
 .header02 {
   opacity: 0;
   object-fit: cover;
   width: 100%;
+  max-height: 600px;
+  min-height: 300px;
   position: absolute;
   top: 0;
   -webkit-animation: opacity02 10s ease-in-out infinite;
@@ -55,12 +65,17 @@
   animation: opacity02 10s ease-in-out infinite;
   -webkit-animation-delay: -5s; /* Chrome, Safari, Opera */
   animation-delay: -5s;
+  @media screen and (min-width: $large-breakpoint) {
+    height: 600px;
+  }
 }
 
 .header03 {
   opacity: 0;
   object-fit: cover;
   width: 100%;
+  max-height: 600px;
+  min-height: 300px;
   position: absolute;
   top: 0;
   -webkit-animation: opacity02 10s ease-in-out infinite;
@@ -68,6 +83,9 @@
   animation: opacity02 10s ease-in-out infinite;
   -webkit-animation-delay: -9s; /* Chrome, Safari, Opera */
   animation-delay: -9s;
+  @media screen and (min-width: $large-breakpoint) {
+    height: 600px;
+  }
 }
 
 .hero {
@@ -93,7 +111,6 @@
 // }
 
 .nav {
-  overflow: auto;
   padding: 10px;
   .brand {
     float: left;
@@ -101,6 +118,14 @@
   }
   ul {
     float: right;
+    position: absolute;
+    top: 45px;
+    right: 25px;
+    text-align: center;
+    @media screen and (min-width: $large-breakpoint) {
+      top: 15px;
+      float: none;
+    }
     &::after {
       @include clearfix;
     }
@@ -111,12 +136,16 @@
   }
   li:not(.menu-toggle) {
     display: none;
+    // background-color: $dark-grey;
     @media screen and (min-width: $large-breakpoint) {
       display: block;
       float: left;
     }
   }
   .menu-toggle {
+    position: absolute;
+    top: -30px;
+    right: 5px;
     @media screen and (min-width: $large-breakpoint) {
       display: none;
     }
@@ -185,6 +214,9 @@
     h3 {
       max-width: 40%;
       font-size: 1.2em;
+    }
+    ul {
+      height: 50px;
     }
   }
 }

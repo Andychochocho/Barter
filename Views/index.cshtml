@@ -1,3 +1,4 @@
+
 @Html.Partial("head.cshtml")
 <div class="modal-transparency"> </div>
 <div class="container-full">
@@ -6,26 +7,29 @@
       <a href="/"><h1 class="brand">Barter</h1></a>
       <ul>
         <li class="menu-toggle"><i class="fa fa-bars"></i></li>
-        
-            @if (@Model["posts"] != null)
-            {
-              @foreach(var user in @Model["users"])
-              {
-                @if(user.DetermineUser() == true)
-                {
-                <a href = "/profile/@user.GetId()"><img src = '@user.GetPicture()' height = "100" width = "100"></img></a>
 
-             <form action="/logout" method="post">
-                <input type="hidden" name="logout" value="@user.GetId()">
-                <button type="submit" name="button">Logout</button>
-            </form>
-                }
-                }
-            }
-        
+
+
         <li><a href="/login">Sign in</a></li>
         <li><a href="/newuser">Create Account</a></li>
         <li><a href="/about">About</a></li>
+        <li><a href = "logout">Logout</a></li>
+        @if (@Model["posts"] != null)
+        {
+          @foreach(var user in @Model["users"])
+          {
+            @if(user.DetermineUser() == true)
+            {
+            <a href = "/profile/@user.GetId()"><img src = '@user.GetPicture()' height = "100" width = "100"></img></a>
+
+         <!-- <form action="/logout" method="post">
+            <input type="hidden" name="logout" value="@user.GetId()">
+            <button type="submit" name="button">Logout</button>
+        </form> -->
+        <!-- <a href = "logout"><button type="submit" name="button">Logout</button></a> -->
+            }
+            }
+        }
       </ul>
     </div>
     <img src="/Content/img/header01.jpg" class="header01">
@@ -63,7 +67,7 @@
     <h2>Search By Location</h2>
 
     <form action='/location' method="post">
-      <select name = "location">
+      <select class = "customClass" name = "location">
       @foreach(var user in @Model["users"])
       {
       <option value = @user.GetLocation()>@user.GetLocation()</option>
@@ -82,9 +86,13 @@
               {
                 <li>
                   <div class="post-useremail">@post.GetUserEmail()</div>
-                  <div class="post-content">@post.GetUserPost() - @post.GetDate()  -
-                  <a href = "/location/@post.GetUser_Id()">Click To See Location</a></div>
-                  <button class="btn-message">Message</button>
+                  <img class = "curvedPic" src = "@post.GetUserPicture()" height = "100" width = "100">
+                  <div class="post-content">@post.GetUserPost()
+                    <br><hr />
+                  <a href = "/location/@post.GetUser_Id()">Click To See Location</a>
+                  <br>
+                  @post.GetDate()</div>
+                  <form action = "/email/@post.GetUser_Id()"><button class="btn-message">Message</button></form>
                 </li>
               }
             }
@@ -97,7 +105,6 @@
         </div>
 
 
-            <!-- <h1>@Model["user"].GetEmail()</h1> -->
         <div id ="Map" class="map-column">
           <iframe
           width="450"

@@ -1,8 +1,12 @@
 .profile-pic {
-  width: 300px;
+  width: 150px;
   margin: 0 auto;
   img {
     width: 100%;
+    border-radius: 50%;
+  }
+  @media screen and (min-width: $large-breakpoint) {
+    width: 300px;
   }
 }
 
