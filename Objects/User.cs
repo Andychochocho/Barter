@@ -74,6 +74,58 @@ namespace BarterNamespace
         {
             return _aboutMe;
         }
+        
+                public string UserId()
+        {
+
+            return _email + _id.ToString();
+        }
+        
+          public bool DetermineUser()
+        {
+            var conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("DECLARE @authvar nvarchar(100)set @authvar = (select barter_users.auth_token from barter_users where barter_users.auth_token is not null); DECLARE @authtoken nvarchar(100); set @authtoken = (select user_auth.auth from user_auth where user_auth.auth is not null); if(@authvar = @authtoken) begin; select @authvar; end;", conn);
+            SqlDataAdapter adapt = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            
+            adapt.Fill(ds);
+            conn.Close();  
+                      
+            string title = ds.Tables[0].Rows[0][0].ToString();
+            
+                if (this.GetEmail() == title)
+                {
+                    Console.WriteLine(true);
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine(false);
+                    return false;
+                }
+        }
+        
+     public static void LogIn(string User)
+    {
+        var conn = DB.Connection();
+        conn.Open();
+
+        var cmd = new SqlCommand("INSERT INTO user_auth(auth) OUTPUT INSERTED.id VALUES (@UserAuthToken);", conn);
+        var AuthParameter = new SqlParameter();
+        AuthParameter.ParameterName = "@UserAuthToken";
+        AuthParameter.Value = User;
+
+        cmd.Parameters.Add(AuthParameter);
+        cmd.ExecuteNonQuery();
+
+        if (conn != null)
+        {
+            conn.Close();
+        }   
+    }
+
 
 
         public static bool MatchUser(string UserName, string Password)
@@ -111,24 +163,6 @@ namespace BarterNamespace
                 return false;
             }
         }
-        // TIM THIS IS THE FOREACH LOOP
-        // public static void DetermineUser()
-        // {
-        //    var conn = DB.Connection();
-        //    conn.Open();
-
-        //    foreach(var user  in users)
-        //    {
-        //        if(users.MatchedUser == user)
-        //        {
-        //            return userinfo;
-        //        }
-        //        else
-        //        {
-        //            return 401;
-        //        }
-        //    }
-        // }
 
         public static List<User> GetAll()
         {
@@ -167,13 +201,13 @@ namespace BarterNamespace
 
             return allUsers;
         }
-        public void Save()
+        public void Save(string UserAuth)
         {
             SqlConnection conn = DB.Connection();
             SqlDataReader rdr;
             conn.Open();
 
-            SqlCommand cmd = new SqlCommand("INSERT INTO barter_users(email, pic, user_password, user_location, about_me) OUTPUT INSERTED.id VALUES(@Email, @Picture, @Password ,@Location, @about);", conn);
+            SqlCommand cmd = new SqlCommand("INSERT INTO barter_users(email, pic, user_password, user_location, about_me, auth_token) OUTPUT INSERTED.id VALUES(@Email, @Picture, @Password ,@Location, @about, @AuthToken);", conn);
 
             SqlParameter emailNameParameter = new SqlParameter();
             emailNameParameter.ParameterName = "@Email";
@@ -199,6 +233,12 @@ namespace BarterNamespace
             userAbout.ParameterName = "@about";
             userAbout.Value = "About Me!";
             cmd.Parameters.Add(userAbout);
+            
+            SqlParameter AuthParam = new SqlParameter();
+            AuthParam.ParameterName = "@AuthToken";
+            AuthParam.Value = UserAuth;
+            cmd.Parameters.Add(AuthParam);
+            
 
             rdr = cmd.ExecuteReader();
 

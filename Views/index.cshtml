@@ -6,6 +6,22 @@
       <a href="/"><h1 class="brand">Barter</h1></a>
       <ul>
         <li class="menu-toggle"><i class="fa fa-bars"></i></li>
+        
+            @if (@Model["posts"] != null)
+            {
+              @foreach(var user in @Model["users"])
+              {
+                @if(user.DetermineUser() == true)
+                {
+                <a href = "/profile/@user.GetId()"><img src = '@user.GetPicture()' height = "100" width = "100"></img></a>
+                  <form>
+                  <input type="hidden" name="logout" value="@user.GetId()">
+                  <button type="submit">Logout</button>
+                 </form>
+                }
+                }
+            }
+        
         <li><a href="/login">Sign in</a></li>
         <li><a href="/newuser">Create Account</a></li>
         <li><a href="/about">About</a></li>

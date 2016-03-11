@@ -76,7 +76,7 @@ namespace BarterNamespace
 
       Post["/newuser"] = _ => {
         User newUser = new User(Request.Form["email"], Request.Form["pic"], Request.Form["password"], Request.Form["location"], "about me");
-        newUser.Save();
+        newUser.Save(Request.Form["email"]);
         Dictionary<string, object> newDictionary = new Dictionary<string, object>();
         List<UserPost> AllPosts = UserPost.GetAll();
         List<User> AllUsers = User.GetAll();
@@ -84,7 +84,7 @@ namespace BarterNamespace
         newDictionary.Add("user", foundUser);
         newDictionary.Add("posts", AllPosts);
         newDictionary.Add("users", AllUsers);
-        return View["index.cshtml", newDictionary];
+        return View["login.cshtml", newDictionary];
       };
 
       Get["/profile/{id}"] = parameters => {
@@ -101,12 +101,18 @@ namespace BarterNamespace
       };
 
       Get["/login"] = _ => {
-        return View["login.cshtml"];
+        User newUser = new User(Request.Form["email"], Request.Form["pic"], Request.Form["password"], Request.Form["location"], "about me");
+        newUser.Save(Request.Form["email"]);
+        Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+        List<UserPost> AllPosts = UserPost.GetAll();
+        List<User> AllUsers = User.GetAll();
+        return View["login.cshtml", newDictionary];
       };
 
       Post["/login"] = _ =>{
         if (User.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
         {
+          User.LogIn(Request.Form["email"]);
           Dictionary<string, object> newDictionary = new Dictionary<string, object>();
           User foundUser = new User("Patrick O'Whiskers", "http://56.media.tumblr.com/tumblr_lvy0v3pIo71r4fsmgo1_500.jpg", "password", "portland", "im a cool cat");
           List<UserPost> AllPosts = UserPost.GetAll();
@@ -114,6 +120,7 @@ namespace BarterNamespace
           newDictionary.Add("user", foundUser);
           newDictionary.Add("posts", AllPosts);
           newDictionary.Add("users", AllUsers);
+          
           return View["index.cshtml", newDictionary];
         }
         else {
@@ -121,6 +128,15 @@ namespace BarterNamespace
             return View["login.cshtml"];
         }
 
+      };
+      
+      Get["/logout"] = _ =>{
+        return View["logout.cshtml"];  
+      };
+      
+      Post["/logout"] = _ => {
+        User.LogOut(int.Parse(Request.Form["logout"]));
+        return View["logout.cshtml"];
       };
 
       Get["/email/{id}"] = parameters => {
