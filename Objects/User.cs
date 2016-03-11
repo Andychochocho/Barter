@@ -112,9 +112,8 @@ namespace BarterNamespace
         var conn = DB.Connection();
         conn.Open();
         
-
-        var cmd = new SqlCommand("INSERT INTO user_auth(auth) OUTPUT INSERTED.id VALUES (@UserAuthToken);", conn);
-                                                                                                           
+        
+        var cmd = new SqlCommand("TRUNCATE TABLE [user_auth]; INSERT INTO user_auth(auth) OUTPUT INSERTED.id VALUES (@UserAuthToken); UPDATE barter_users SET barter_users.auth_token = (SELECT user_auth.auth FROM user_auth WHERE user_auth.id=barter_users.id);", conn);                                                                              
         var AuthParameter = new SqlParameter();
         AuthParameter.ParameterName = "@UserAuthToken";
         AuthParameter.Value = user;
@@ -128,6 +127,28 @@ namespace BarterNamespace
             conn.Close();
         }   
     }
+    
+    public static void MutipleLogIn(string user)
+{
+    var conn = DB.Connection();
+    conn.Open();
+
+    var cmd = new SqlCommand("TRUNCATE TABLE [user_auth]; UPDATE barter_users SET auth_token=@NewAuthToken OUTPUT INSERTED.id WHERE id=@AuthId");
+
+    var AuthParameter = new SqlParameter();
+    AuthParameter.ParameterName = "@NewAuthToken";
+    AuthParameter.Value = user;
+
+    cmd.Parameters.Add(AuthParameter);
+
+    cmd.ExecuteNonQuery();
+
+    if (conn != null)
+    {
+        conn.Close();
+    }
+
+}
     
        public static void LogOut(int user)
     {
@@ -228,6 +249,7 @@ namespace BarterNamespace
         }
         public void Save(string UserAuth)
         {
+            
             SqlConnection conn = DB.Connection();
             SqlDataReader rdr;
             conn.Open();
