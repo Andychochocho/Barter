@@ -98,11 +98,11 @@
           <a href = "/profile/@user.GetId()"><img src = '@user.GetPicture()' height = "100" width = "100"></img></a>
           <p><a href = "/email/@user.GetId()">@user.GetEmail()</a></p>
           <hr />
-          <div id = "message-modal-@user.GetId()" class="message-modal">
+          <div class="message-modal">
             <div class="modal-close"><i class="fa fa-times"></i></div>
             <h3>Message User</h3>
             <form class="modal-form" action='/email/@user.GetId()' method="post">
-              <p>Send a message to a user. Just write your response below, select the user from the dropdown, and click "send message"</p>
+              <p>Send a message to a user @user.GetId(). Just write your response below, select the user from the dropdown, and click "send message"</p>
               <label class="msg" for="email">Write Your Message</label>
               <textarea type="text" name="email"></textarea>
               <select name = "sender">
