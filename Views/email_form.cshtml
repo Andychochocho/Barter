@@ -1,27 +1,33 @@
 @Html.Partial("head.cshtml")
-<div class="container-full">
-  <div class="hero-signup">
-    <div class="nav">
-      <h1 class="brand">Barter</h1>
-      <ul>
-        <li class="menu-toggle">=</li>
-        <li> <a href="/login">Sign in</a></li>
-        <li><a href="/newuser">Create Account</a></li>
-        <li><a href="/about">About</a></li>
-      </ul>
+
+<body>
+  <div class="container-full">
+      <div class="hero-min">
+      <div class="nav">
+        <a href="/"><h1 class="brand">Barter</h1></a>
+        <ul>
+          <li class="menu-toggle"><i class="fa fa-bars"></i></li>
+          <li><a href="/login">Sign in</a></li>
+          <li><a href="/newuser">Create Account</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
     </div>
-    <h2>Sign Up for Barter</h2>
-  </div>
-</div>
+    <div class="container">
 <h3>Email: </h3>
-<form action='/email/@Model["user"].GetId()' method="post">
-  <label for="email">Email:</label>
-  <input type="text" name="email">
+<form class="post-form" action='/email/@Model["user"].GetId()' method="post">
+  <textarea type="text" name="email"></textarea>
+  <h3>Email Sender: </h3>
   <select name = "sender">
   @foreach(var user in @Model["users"])
   {
-  <option value = @user.GetId()>@user.GetEmail()</option>
+  <option value = @user.GetId()> @user.GetEmail()</option>
   }
 </select>
   <button type="submit" name="button">Send Email</button>
 </form>
+</div>
+<footer>&copy; 2016 Jess Guilford, Christine Tacha, Andy Cho, Timothy Durward, Simon Temple, Alex Larson<br> All rights reserved</footer>
+</div>
+</body>
+</html>
