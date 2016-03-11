@@ -15,14 +15,25 @@
         </div>
       </div>
       <div class="container">
-        <form action="/login" method="post">
-      <label>User:</label>
-      <input type="text" name="email">
+      
 
-      <label>Password:</label>
-      <input type="password" name="password">
-      <button type="submit" name="button">Login</button>
-    </form>
+             <form action="/login" method="post">
+                  <label>User:</label>
+                <input type="text" name="email">
+               
+                <label>Password:</label>
+                <input type="password" name="password">
+                 
+                 @foreach(var user in @Model["users"])
+                {
+                @if(user.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
+                {
+                <input type="hidden" name="user-id" value="@user.GetId()">
+                <button type="submit" name="button">Login</button>
+                 }
+                }   
+            </form>
+
       </div>
       <footer>&copy; 2016 Jess Guilford, Christine Tacha, Andy Cho, Timothy Durward, Simon Temple, Alex Larson<br> All rights reserved</footer>
     </div>

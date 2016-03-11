@@ -107,23 +107,30 @@ namespace BarterNamespace
                 }
         }
         
-     public static void LogIn(string User)
+     public static void LogIn(string user, int id)
     {
         var conn = DB.Connection();
         conn.Open();
+        
 
-        var cmd = new SqlCommand("INSERT INTO user_auth(auth) OUTPUT INSERTED.id VALUES (@UserAuthToken); INSERT INTO barter_users(auth_token) OUTPUT INSERTED.id VALUES (@UserAuth)", conn);
+        var cmd = new SqlCommand("INSERT INTO user_auth(auth) OUTPUT INSERTED.id VALUES (@UserAuthToken); UPDATE barter_users SET auth_token = @UserAuth OUTPUT INSERTED.auth_token WHERE id = @UserID;", conn);
+                                                                                                           
         var AuthParameter = new SqlParameter();
         AuthParameter.ParameterName = "@UserAuthToken";
-        AuthParameter.Value = User;
+        AuthParameter.Value = user;
         
         var UserParameter = new SqlParameter();
         UserParameter.ParameterName = "@UserAuth";
-        UserParameter.Value = User;
+        UserParameter.Value = user;
+        
+        var UserIDParameter = new SqlParameter();
+        UserIDParameter.ParameterName = "@UserID";
+        UserIDParameter.Value = id;
 
 
         cmd.Parameters.Add(AuthParameter);
         cmd.Parameters.Add(UserParameter);
+        cmd.Parameters.Add(UserIDParameter);
         cmd.ExecuteNonQuery();
 
         if (conn != null)
