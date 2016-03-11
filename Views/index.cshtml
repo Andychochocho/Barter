@@ -66,7 +66,7 @@
                 <li>
                   <div class="post-useremail">@post.GetUserEmail()</div>
                   <a href = "/profile/@post.GetUser_Id()"><img src = '@post.GetUserPicture()' height = "100" width = "100"></img></a>
-                  <div class="post-content">@post.GetUserPost() - @post.GetDate()  -
+                  <div class="post-content">@post.GetUserPost() - @post.GetDate() - @post.GetUser_Id()
                   <a href = "/location/@post.GetUser_Id()">Click To See Location</a></div>
                   <button class="btn-message">Message</button>
                 </li>
@@ -91,13 +91,14 @@
             &q=@Model["user"].GetLocation()'
           allowfullscreen>
         </iframe>
+        <hr />
 
         @foreach(var user in @Model["users"])
         {
           <a href = "/profile/@user.GetId()"><img src = '@user.GetPicture()' height = "100" width = "100"></img></a>
           <p><a href = "/email/@user.GetId()">@user.GetEmail()</a></p>
           <hr />
-          <div class="message-modal">
+          <div id = "message-modal-@user.GetId()" class="message-modal">
             <div class="modal-close"><i class="fa fa-times"></i></div>
             <h3>Message User</h3>
             <form class="modal-form" action='/email/@user.GetId()' method="post">
@@ -107,7 +108,7 @@
               <select name = "sender">
               @foreach(var emailUser in @Model["users"])
               {
-              <option value = @user.GetId()>@emailUser.GetEmail()</option>
+              <option value = @emailUser.GetId()>@emailUser.GetEmail() -@emailUser.GetId()</option>
               }
               </select>
               <button class="modal-btn" type="submit" name="button">Send Message</button>

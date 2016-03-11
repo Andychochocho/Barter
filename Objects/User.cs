@@ -150,8 +150,6 @@ namespace BarterNamespace
                 string location = rdr.GetString(4);
                 string aboutMe = rdr.GetString(5);
 
-
-
                 User newUser = new User(email, picture, password, location, aboutMe, Id);
                 allUsers.Add(newUser);
             }

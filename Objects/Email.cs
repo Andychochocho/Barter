@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
+using System.Linq;
+
 
 namespace BarterNamespace
 {
@@ -77,36 +79,40 @@ namespace BarterNamespace
             _sender_id = newSender_Id;
         }
 
-        public static List<Email> GetAll()
+        public static List<Email> GetAll(int id)
         {
-          List<Email> allEmails = new List<Email> { };
-
           SqlConnection conn = DB.Connection();
           SqlDataReader rdr = null;
           conn.Open();
 
-          SqlCommand cmd = new SqlCommand("SELECT * FROM emails;", conn);
+          List<Email> userEmails = new List<Email> { };
+
+          SqlCommand cmd = new SqlCommand("SELECT emails.* FROM emails WHERE barter_user_id = @userId", conn);
+
+          SqlParameter UserIdParameter = new SqlParameter();
+          UserIdParameter.ParameterName = "@userId";
+          UserIdParameter.Value = id;
+          cmd.Parameters.Add(UserIdParameter);
 
           rdr = cmd.ExecuteReader();
 
-          //
-          // int foundEmailId = 0;
-          // string foundEmail = null;
-          // int foundUserId = 0;
-          // DateTime foundDateTime = new DateTime(2016, 1, 1);
-          // int foundSenderId = 0;
+          int foundEmailId = 0;
+          string foundEmail = null;
+          int foundUserId = 0;
+          DateTime foundDateTime = new DateTime(2016, 1, 1);
+          int foundSenderId = 1;
 
           while (rdr.Read())
           {
-              int foundEmailId = rdr.GetInt32(0);
-              int foundUserId = rdr.GetInt32(1);
-              string foundEmail = rdr.GetString(2);
-              DateTime foundDateTime = rdr.GetDateTime(3);
-              int foundSenderId = rdr.GetInt32(4);
+              foundEmailId = rdr.GetInt32(0);
+              foundUserId = rdr.GetInt32(1);
+              foundEmail = rdr.GetString(2);
+              foundDateTime = rdr.GetDateTime(3);
+              foundSenderId = rdr.GetInt32(4);
               Email newEmail = new Email(foundUserId, foundEmail, foundDateTime, foundSenderId, foundEmailId);
-              allEmails.Add(newEmail);
-          }
+              userEmails.Add(newEmail);
 
+          }
           if (rdr != null)
           {
               rdr.Close();
@@ -115,8 +121,10 @@ namespace BarterNamespace
           {
               conn.Close();
           }
+          List<Email> SortedList = userEmails.OrderByDescending(o=>o._date_time).ToList();
+          // Console.WriteLine()
 
-          return allEmails;
+          return SortedList;
         }
 
         public void Save()

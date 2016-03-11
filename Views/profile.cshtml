@@ -11,15 +11,15 @@
         <li><a href="/about">About</a></li>
       </ul>
     </div>
-    <h2>@Model.GetEmail()</h2>
-    <h3>Lives In: @Model.GetLocation()</h3>
+    <h2>@Model["foundUser"].GetEmail()</h2>
+    <h3>Lives In: @Model["foundUser"].GetLocation()</h3>
     </div>
     <div class="container">
     <div class="profile-pic">
-      <h3><img src="@Model.GetPicture()" height = "300" width = "300" alt=""></h3>
+      <h3><img src='@Model["foundUser"].GetPicture()' height = "300" width = "300" alt=""></h3>
     </div>
-    <h3>About @Model.GetEmail()</h3>
-    <form action = "/update/about_me/@Model.GetId()" method = "post">
+    <h3>About @Model["foundUser"].GetEmail()</h3>
+    <form action = '/update/about_me/@Model["foundUser"].GetId()' method = "post">
       <input type="hidden" name="_method" value="PATCH">
       <input name = "aboutMe"></input>
       <button>Update Profile Info</button>
@@ -28,21 +28,21 @@
     <form class="post-form">
       <h3>About Me</h3>
       <hr />
-      <p class="about-user">@Model.GetAboutMe()</p>
+      <p class="about-user">@Model["foundUser"].GetAboutMe()</p>
     </form>
 
-    <form class="post-form" action="/postForm/@Model.GetId()" method="post">
+    <form class="post-form" action='/postForm/@Model["foundUser"].GetId()' method="post">
       <label for="post">Create a post to start</label>
       <textarea type="text" name="post" value=""></textarea>
       <button type="submit" name="button">Click here</button>
     </form>
     <div class = "container user-posts">
       <div class="post-useremail">Your Emails</div>
-      @foreach (var email in @Model.GetEmails())
+      @foreach (var email in @Model["sortedEmails"])
       {
       <li>Message: @email.GetEmail()
         <hr />
-      Email Sender: @email.GetSenderEmail()</li>
+      Email Sender: @email.GetSenderEmail() - Time Sent: @email.GetDate()</li>
       <hr />
       }
     </div>

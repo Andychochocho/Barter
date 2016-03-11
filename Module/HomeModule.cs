@@ -88,16 +88,23 @@ namespace BarterNamespace
       };
 
       Get["/profile/{id}"] = parameters => {
+        Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+
         User foundUser = User.Find(parameters.id);
-        Console.WriteLine(foundUser.GetAboutMe());
-        return View["profile.cshtml", foundUser];
+        List<Email> sortedEmails = Email.GetAll(parameters.id);
+        newDictionary.Add("sortedEmails", sortedEmails);
+        newDictionary.Add("foundUser", foundUser);
+        return View["profile.cshtml", newDictionary];
       };
 
       Patch["/update/about_me/{id}"] = parameters => {
+        Dictionary<string, object> newDictionary = new Dictionary<string, object>();
+        List<Email> sortedEmails = Email.GetAll(parameters.id);
         User foundUser = User.Find(parameters.id);
+        newDictionary.Add("sortedEmails", sortedEmails);
+        newDictionary.Add("foundUser", foundUser);
         foundUser.Update(Request.Form["aboutMe"]);
-        Console.WriteLine(foundUser.GetAboutMe());
-        return View["profile.cshtml", foundUser];
+        return View["profile.cshtml", newDictionary];
       };
 
       Get["/login"] = _ => {
@@ -136,7 +143,12 @@ namespace BarterNamespace
       User foundUser = User.Find(parameters.id);
       DateTime TimeStamp = DateTime.Now;
       // User sendingUser = User.Find(Request.Form["userList"]);
-      Email newEmail = new Email(foundUser.GetId(), Request.Form["email"], TimeStamp, Request.Form["sender"]);
+      Email newEmail = new Email(parameters.id, Request.Form["email"], TimeStamp, Request.Form["sender"]);
+      Console.WriteLine("User Id(Whose inbox its inside): "+newEmail.GetUser_Id());
+      Console.WriteLine("Email Msg: "+newEmail.GetEmail());
+      Console.WriteLine("Sender ID: "+newEmail.GetSender_Id());
+
+
       newEmail.Save();
       Dictionary<string, object> newDictionary = new Dictionary<string, object>();
       List<UserPost> AllPosts = UserPost.GetAll();
