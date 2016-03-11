@@ -107,30 +107,20 @@ namespace BarterNamespace
                 }
         }
         
-     public static void LogIn(string user, int id)
+     public static void LogIn(string user)
     {
         var conn = DB.Connection();
         conn.Open();
         
 
-        var cmd = new SqlCommand("INSERT INTO user_auth(auth) OUTPUT INSERTED.id VALUES (@UserAuthToken); UPDATE barter_users SET auth_token = @UserAuth OUTPUT INSERTED.auth_token WHERE id = @UserID;", conn);
+        var cmd = new SqlCommand("INSERT INTO user_auth(auth) OUTPUT INSERTED.id VALUES (@UserAuthToken);", conn);
                                                                                                            
         var AuthParameter = new SqlParameter();
         AuthParameter.ParameterName = "@UserAuthToken";
         AuthParameter.Value = user;
         
-        var UserParameter = new SqlParameter();
-        UserParameter.ParameterName = "@UserAuth";
-        UserParameter.Value = user;
-        
-        var UserIDParameter = new SqlParameter();
-        UserIDParameter.ParameterName = "@UserID";
-        UserIDParameter.Value = id;
-
-
         cmd.Parameters.Add(AuthParameter);
-        cmd.Parameters.Add(UserParameter);
-        cmd.Parameters.Add(UserIDParameter);
+
         cmd.ExecuteNonQuery();
 
         if (conn != null)
@@ -144,7 +134,7 @@ namespace BarterNamespace
         var conn = DB.Connection();
         conn.Open();
 
-        var cmd = new SqlCommand("UPDATE barter_users SET auth_token = null WHERE id=@AuthId; truncate table [user_auth];", conn);
+        var cmd = new SqlCommand("UPDATE barter_users SET auth_token = null WHERE id=@AuthId;", conn);
         var cmd2 = new SqlCommand("TRUNCATE TABLE [user_auth];", conn);
 
         var authIdParameter = new SqlParameter();

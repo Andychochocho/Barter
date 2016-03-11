@@ -20,18 +20,9 @@
              <form action="/login" method="post">
                   <label>User:</label>
                 <input type="text" name="email">
-               
                 <label>Password:</label>
                 <input type="password" name="password">
-                 
-                 @foreach(var user in @Model["users"])
-                {
-                @if(user.MatchUser(Request.Form["email"], Request.Form["password"]) == true)
-                {
-                <input type="hidden" name="user-id" value="@user.GetId()">
-                <button type="submit" name="button">Login</button>
-                 }
-                }   
+                <button type="submit" name="button">Login</button> 
             </form>
 
       </div>
