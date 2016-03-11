@@ -14,10 +14,11 @@
                 @if(user.DetermineUser() == true)
                 {
                 <a href = "/profile/@user.GetId()"><img src = '@user.GetPicture()' height = "100" width = "100"></img></a>
-                  <form>
-                  <input type="hidden" name="logout" value="@user.GetId()">
-                  <button type="submit">Logout</button>
-                 </form>
+
+             <form action="/logout" method="post">
+                <input type="hidden" name="logout" value="@user.GetId()">
+                <button type="submit" name="button">Logout</button>
+            </form>
                 }
                 }
             }

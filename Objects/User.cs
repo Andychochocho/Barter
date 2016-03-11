@@ -112,18 +112,46 @@ namespace BarterNamespace
         var conn = DB.Connection();
         conn.Open();
 
-        var cmd = new SqlCommand("INSERT INTO user_auth(auth) OUTPUT INSERTED.id VALUES (@UserAuthToken);", conn);
+        var cmd = new SqlCommand("INSERT INTO user_auth(auth) OUTPUT INSERTED.id VALUES (@UserAuthToken); INSERT INTO barter_users(auth_token) OUTPUT INSERTED.id VALUES (@UserAuth)", conn);
         var AuthParameter = new SqlParameter();
         AuthParameter.ParameterName = "@UserAuthToken";
         AuthParameter.Value = User;
+        
+        var UserParameter = new SqlParameter();
+        UserParameter.ParameterName = "@UserAuth";
+        UserParameter.Value = User;
+
 
         cmd.Parameters.Add(AuthParameter);
+        cmd.Parameters.Add(UserParameter);
         cmd.ExecuteNonQuery();
 
         if (conn != null)
         {
             conn.Close();
         }   
+    }
+    
+       public static void LogOut(int user)
+    {
+        var conn = DB.Connection();
+        conn.Open();
+
+        var cmd = new SqlCommand("UPDATE barter_users SET auth_token = null WHERE id=@AuthId; truncate table [user_auth];", conn);
+        var cmd2 = new SqlCommand("TRUNCATE TABLE [user_auth];", conn);
+
+        var authIdParameter = new SqlParameter();
+        authIdParameter.ParameterName = "@AuthId";
+        authIdParameter.Value = user;
+
+        cmd.Parameters.Add(authIdParameter);
+        cmd.ExecuteNonQuery();
+        cmd2.ExecuteNonQuery();
+
+        if (conn != null)
+        {
+            conn.Close();
+        }
     }
 
 

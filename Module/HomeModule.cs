@@ -101,12 +101,8 @@ namespace BarterNamespace
       };
 
       Get["/login"] = _ => {
-        User newUser = new User(Request.Form["email"], Request.Form["pic"], Request.Form["password"], Request.Form["location"], "about me");
-        newUser.Save(Request.Form["email"]);
-        Dictionary<string, object> newDictionary = new Dictionary<string, object>();
-        List<UserPost> AllPosts = UserPost.GetAll();
-        List<User> AllUsers = User.GetAll();
-        return View["login.cshtml", newDictionary];
+
+        return View["login.cshtml"];
       };
 
       Post["/login"] = _ =>{
@@ -136,6 +132,7 @@ namespace BarterNamespace
       
       Post["/logout"] = _ => {
         User.LogOut(int.Parse(Request.Form["logout"]));
+
         return View["logout.cshtml"];
       };
 
